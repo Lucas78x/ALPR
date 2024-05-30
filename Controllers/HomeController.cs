@@ -227,11 +227,11 @@ namespace F.Controllers
                     {
                         if (errorCode == (int)ErrorTypeEnum.Email)
                         {
-                            ViewBag.ErrorMessage = "Email inválido.";
+                            ViewBag.ErrorMessage = "Email invalido.";
                         }
                         else if (errorCode == (int)ErrorTypeEnum.Password)
                         {
-                            ViewBag.ErrorMessage = "Senha inválida.";
+                            ViewBag.ErrorMessage = "Senha invalida.";
                         }
                         else
                         {
