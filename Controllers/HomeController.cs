@@ -80,7 +80,7 @@ namespace F.Controllers
 
             }
 
-            string filePath = @"Cameras/cameras.json";
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Cameras", "cameras.json");
 
             List<CameraInfo> cameraList = new();
 
@@ -97,7 +97,8 @@ namespace F.Controllers
                 foreach (var cameraInfo in cameraList)
                 {
 
-                    string pastaImagens = @$"Cameras/{cameraInfo.Camera}/{DateTime.Now.ToString("MM/yyyy").Replace("/", string.Empty)}";
+                    string folderName = $"{DateTime.Now.ToString("MM/yyyy").Replace("/", string.Empty)}";
+                    string pastaImagens = Path.Combine(_webHostEnvironment.WebRootPath, "Cameras", cameraInfo.Camera, folderName);                  
 
                     if (System.IO.File.Exists(pastaImagens))
                         continue;
