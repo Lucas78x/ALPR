@@ -80,7 +80,7 @@ namespace F.Controllers
 
             }
 
-            string filePath = @"/root/Cameras/cameras.json";
+            string filePath = @"~/Cameras/Cameras.json";
 
             List<CameraInfo> cameraList = new();
 
@@ -97,7 +97,7 @@ namespace F.Controllers
                 foreach (var cameraInfo in cameraList)
                 {
 
-                    string pastaImagens = @$"/root/Cameras/{cameraInfo.Camera}/{DateTime.Now.ToString("MM/yyyy").Replace("/", string.Empty)}";
+                    string pastaImagens = @$"~/Cameras/{cameraInfo.Camera}/{DateTime.Now.ToString("MM/yyyy").Replace("/", string.Empty)}";
 
                     if (System.IO.File.Exists(pastaImagens))
                         continue;
