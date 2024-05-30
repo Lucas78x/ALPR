@@ -1,0 +1,1165 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\Cameras\\Cameras.json",
+      "PackagePath": "staticwebassets\\Cameras\\Cameras.json"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\Cameras\\Guarajuba\\052024\\Silver_ASWKNJ_2024-05-25.jpg",
+      "PackagePath": "staticwebassets\\Cameras\\Guarajuba\\052024\\Silver_ASWKNJ_2024-05-25.jpg"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\Cameras\\Guarajuba\\052024\\Silver_ASWKNJ_2024-05-25_sdfclsdkf.jpg",
+      "PackagePath": "staticwebassets\\Cameras\\Guarajuba\\052024\\Silver_ASWKNJ_2024-05-25_sdfclsdkf.jpg"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\Cameras\\Guarajuba\\052024\\Silver_ASWKNJ_2024-05-25_sdfclsdkfsdf.jpg",
+      "PackagePath": "staticwebassets\\Cameras\\Guarajuba\\052024\\Silver_ASWKNJ_2024-05-25_sdfclsdkfsdf.jpg"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\Logout\\remove.php",
+      "PackagePath": "staticwebassets\\Logout\\remove.php"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\Request\\Alerts.php",
+      "PackagePath": "staticwebassets\\Request\\Alerts.php"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\Request\\RecentPlates.php",
+      "PackagePath": "staticwebassets\\Request\\RecentPlates.php"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\Request\\RequestInfo.php",
+      "PackagePath": "staticwebassets\\Request\\RequestInfo.php"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\alprcss\\molecules-technology-with-polygonal-shapes-connecting-dots-lines_7247-1742.png",
+      "PackagePath": "staticwebassets\\alprcss\\molecules-technology-with-polygonal-shapes-connecting-dots-lines_7247-1742.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\alprcss\\style.css",
+      "PackagePath": "staticwebassets\\alprcss\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\css\\main.css",
+      "PackagePath": "staticwebassets\\css\\main.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\css\\util.css",
+      "PackagePath": "staticwebassets\\css\\util.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\dashboardcss\\Style.css",
+      "PackagePath": "staticwebassets\\dashboardcss\\Style.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\dashboardcss\\bootstrap.css",
+      "PackagePath": "staticwebassets\\dashboardcss\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\dashboardcss\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\dashboardcss\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\dashboardcss\\plugins\\morris.css",
+      "PackagePath": "staticwebassets\\dashboardcss\\plugins\\morris.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\dashboardcss\\sb-admin.css",
+      "PackagePath": "staticwebassets\\dashboardcss\\sb-admin.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\css\\font-awesome.css",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\css\\font-awesome.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\css\\font-awesome.min.css",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\css\\font-awesome.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\fonts\\FontAwesome.otf",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\fonts\\FontAwesome.otf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\fonts\\fontawesome-webfont.eot",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\fonts\\fontawesome-webfont.eot"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\fonts\\fontawesome-webfont.svg",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\fonts\\fontawesome-webfont.svg"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\fonts\\fontawesome-webfont.ttf",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\fonts\\fontawesome-webfont.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\fonts\\fontawesome-webfont.woff",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\fonts\\fontawesome-webfont.woff"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\bordered-pulled.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\bordered-pulled.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\core.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\core.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\fixed-width.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\fixed-width.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\font-awesome.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\font-awesome.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\icons.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\icons.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\larger.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\larger.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\list.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\list.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\mixins.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\mixins.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\path.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\path.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\rotated-flipped.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\rotated-flipped.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\spinning.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\spinning.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\stacked.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\stacked.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\less\\variables.less",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\less\\variables.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_bordered-pulled.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_bordered-pulled.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_core.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_core.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_fixed-width.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_fixed-width.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_icons.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_icons.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_larger.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_larger.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_list.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_list.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_mixins.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_mixins.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_path.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_path.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_rotated-flipped.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_rotated-flipped.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_spinning.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_spinning.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_stacked.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_stacked.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\_variables.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\_variables.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome-4.1.0\\scss\\font-awesome.scss",
+      "PackagePath": "staticwebassets\\font-awesome-4.1.0\\scss\\font-awesome.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\css\\font-awesome.css",
+      "PackagePath": "staticwebassets\\font-awesome\\css\\font-awesome.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\css\\font-awesome.min.css",
+      "PackagePath": "staticwebassets\\font-awesome\\css\\font-awesome.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\fonts\\FontAwesome.otf",
+      "PackagePath": "staticwebassets\\font-awesome\\fonts\\FontAwesome.otf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\fonts\\fontawesome-webfont.eot",
+      "PackagePath": "staticwebassets\\font-awesome\\fonts\\fontawesome-webfont.eot"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\fonts\\fontawesome-webfont.svg",
+      "PackagePath": "staticwebassets\\font-awesome\\fonts\\fontawesome-webfont.svg"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\fonts\\fontawesome-webfont.ttf",
+      "PackagePath": "staticwebassets\\font-awesome\\fonts\\fontawesome-webfont.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\fonts\\fontawesome-webfont.woff",
+      "PackagePath": "staticwebassets\\font-awesome\\fonts\\fontawesome-webfont.woff"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\bordered-pulled.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\bordered-pulled.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\core.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\core.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\fixed-width.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\fixed-width.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\font-awesome.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\font-awesome.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\icons.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\icons.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\larger.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\larger.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\list.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\list.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\mixins.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\mixins.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\path.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\path.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\rotated-flipped.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\rotated-flipped.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\spinning.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\spinning.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\stacked.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\stacked.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\less\\variables.less",
+      "PackagePath": "staticwebassets\\font-awesome\\less\\variables.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_bordered-pulled.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_bordered-pulled.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_core.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_core.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_fixed-width.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_fixed-width.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_icons.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_icons.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_larger.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_larger.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_list.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_list.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_mixins.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_mixins.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_path.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_path.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_rotated-flipped.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_rotated-flipped.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_spinning.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_spinning.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_stacked.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_stacked.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\_variables.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\_variables.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\font-awesome\\scss\\font-awesome.scss",
+      "PackagePath": "staticwebassets\\font-awesome\\scss\\font-awesome.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\HELP-US-OUT.txt",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\HELP-US-OUT.txt"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\css\\font-awesome.css",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\css\\font-awesome.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\css\\font-awesome.min.css",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\css\\font-awesome.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\fonts\\FontAwesome.otf",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\fonts\\FontAwesome.otf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.eot",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.eot"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.svg",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.svg"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.ttf",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.woff",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.woff"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.woff2",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\fonts\\fontawesome-webfont.woff2"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\animated.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\animated.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\bordered-pulled.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\bordered-pulled.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\core.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\core.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\fixed-width.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\fixed-width.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\font-awesome.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\font-awesome.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\icons.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\icons.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\larger.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\larger.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\list.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\list.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\mixins.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\mixins.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\path.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\path.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\rotated-flipped.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\rotated-flipped.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\screen-reader.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\screen-reader.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\stacked.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\stacked.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\less\\variables.less",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\less\\variables.less"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_animated.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_animated.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_bordered-pulled.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_bordered-pulled.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_core.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_core.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_fixed-width.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_fixed-width.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_icons.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_icons.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_larger.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_larger.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_list.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_list.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_mixins.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_mixins.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_path.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_path.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_rotated-flipped.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_rotated-flipped.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_screen-reader.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_screen-reader.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_stacked.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_stacked.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\_variables.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\_variables.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\font-awesome-4.7.0\\scss\\font-awesome.scss",
+      "PackagePath": "staticwebassets\\fonts\\font-awesome-4.7.0\\scss\\font-awesome.scss"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\glyphicons-halflings-regular.eot",
+      "PackagePath": "staticwebassets\\fonts\\glyphicons-halflings-regular.eot"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\glyphicons-halflings-regular.svg",
+      "PackagePath": "staticwebassets\\fonts\\glyphicons-halflings-regular.svg"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\glyphicons-halflings-regular.ttf",
+      "PackagePath": "staticwebassets\\fonts\\glyphicons-halflings-regular.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\glyphicons-halflings-regular.woff",
+      "PackagePath": "staticwebassets\\fonts\\glyphicons-halflings-regular.woff"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-Black.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-Black.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-BlackItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-BlackItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-Bold.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-Bold.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-BoldItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-BoldItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-ExtraBold.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-ExtraBold.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-ExtraBoldItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-ExtraBoldItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-ExtraLight.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-ExtraLight.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-ExtraLightItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-ExtraLightItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-Italic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-Italic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-Light.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-Light.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-LightItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-LightItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-Medium.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-Medium.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-MediumItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-MediumItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-Regular.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-Regular.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-SemiBold.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-SemiBold.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-SemiBoldItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-SemiBoldItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-Thin.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-Thin.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\Montserrat-ThinItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\Montserrat-ThinItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\montserrat\\OFL.txt",
+      "PackagePath": "staticwebassets\\fonts\\montserrat\\OFL.txt"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-Black.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-Black.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-BlackItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-BlackItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-Bold.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-Bold.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-BoldItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-BoldItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-ExtraBold.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-ExtraBold.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-ExtraBoldItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-ExtraBoldItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-ExtraLight.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-ExtraLight.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-ExtraLightItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-ExtraLightItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-Italic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-Italic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-Light.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-Light.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-LightItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-LightItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-Medium.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-Medium.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-MediumItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-MediumItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-Regular.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-Regular.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-SemiBold.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-SemiBold.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-SemiBoldItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-SemiBoldItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-Thin.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-Thin.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\fonts\\poppins\\Poppins-ThinItalic.ttf",
+      "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-ThinItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\images\\fundo.png",
+      "PackagePath": "staticwebassets\\images\\fundo.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\images\\icons\\favicon.ico",
+      "PackagePath": "staticwebassets\\images\\icons\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\images\\img-01.png",
+      "PackagePath": "staticwebassets\\images\\img-01.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\Icon\\flavicon.ico",
+      "PackagePath": "staticwebassets\\img\\Icon\\flavicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\fundo.png",
+      "PackagePath": "staticwebassets\\img\\fundo.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\fundo.rar",
+      "PackagePath": "staticwebassets\\img\\fundo.rar"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\login.png",
+      "PackagePath": "staticwebassets\\img\\login.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\logo.png",
+      "PackagePath": "staticwebassets\\img\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\media\\fundo.png",
+      "PackagePath": "staticwebassets\\img\\media\\fundo.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\media\\github.png",
+      "PackagePath": "staticwebassets\\img\\media\\github.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\media\\google.png",
+      "PackagePath": "staticwebassets\\img\\media\\google.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\media\\instagram.png",
+      "PackagePath": "staticwebassets\\img\\media\\instagram.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\media\\twitter.png",
+      "PackagePath": "staticwebassets\\img\\media\\twitter.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\media\\whatsapp.jpg",
+      "PackagePath": "staticwebassets\\img\\media\\whatsapp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\media\\whatsapp.png",
+      "PackagePath": "staticwebassets\\img\\media\\whatsapp.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\img\\user.png",
+      "PackagePath": "staticwebassets\\img\\user.png"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\flot\\chart-data-flot.js",
+      "PackagePath": "staticwebassets\\js\\flot\\chart-data-flot.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\flot\\excanvas.min.js",
+      "PackagePath": "staticwebassets\\js\\flot\\excanvas.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\flot\\jquery.flot.js",
+      "PackagePath": "staticwebassets\\js\\flot\\jquery.flot.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\flot\\jquery.flot.pie.js",
+      "PackagePath": "staticwebassets\\js\\flot\\jquery.flot.pie.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\flot\\jquery.flot.resize.js",
+      "PackagePath": "staticwebassets\\js\\flot\\jquery.flot.resize.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\flot\\jquery.flot.tooltip.min.js",
+      "PackagePath": "staticwebassets\\js\\flot\\jquery.flot.tooltip.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\jquery-1.10.2.js",
+      "PackagePath": "staticwebassets\\js\\jquery-1.10.2.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\jquery-1.11.0.js",
+      "PackagePath": "staticwebassets\\js\\jquery-1.11.0.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\morris\\chart-data-morris.js",
+      "PackagePath": "staticwebassets\\js\\morris\\chart-data-morris.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\plugins\\flot\\excanvas.min.js",
+      "PackagePath": "staticwebassets\\js\\plugins\\flot\\excanvas.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\plugins\\flot\\flot-data.js",
+      "PackagePath": "staticwebassets\\js\\plugins\\flot\\flot-data.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\plugins\\flot\\jquery.flot.js",
+      "PackagePath": "staticwebassets\\js\\plugins\\flot\\jquery.flot.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\plugins\\flot\\jquery.flot.pie.js",
+      "PackagePath": "staticwebassets\\js\\plugins\\flot\\jquery.flot.pie.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\plugins\\flot\\jquery.flot.resize.js",
+      "PackagePath": "staticwebassets\\js\\plugins\\flot\\jquery.flot.resize.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\plugins\\flot\\jquery.flot.tooltip.min.js",
+      "PackagePath": "staticwebassets\\js\\plugins\\flot\\jquery.flot.tooltip.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\plugins\\morris\\morris-data.js",
+      "PackagePath": "staticwebassets\\js\\plugins\\morris\\morris-data.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\plugins\\morris\\morris.js",
+      "PackagePath": "staticwebassets\\js\\plugins\\morris\\morris.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\plugins\\morris\\morris.min.js",
+      "PackagePath": "staticwebassets\\js\\plugins\\morris\\morris.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\plugins\\morris\\raphael.min.js",
+      "PackagePath": "staticwebassets\\js\\plugins\\morris\\raphael.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\tablesorter\\jquery.tablesorter.js",
+      "PackagePath": "staticwebassets\\js\\tablesorter\\jquery.tablesorter.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\js\\tablesorter\\tables.js",
+      "PackagePath": "staticwebassets\\js\\tablesorter\\tables.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\animate\\animate.css",
+      "PackagePath": "staticwebassets\\vendor\\animate\\animate.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\js\\popper.js",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\js\\popper.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\js\\popper.min.js",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\js\\popper.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\bootstrap\\js\\tooltip.js",
+      "PackagePath": "staticwebassets\\vendor\\bootstrap\\js\\tooltip.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\css-hamburgers\\hamburgers.css",
+      "PackagePath": "staticwebassets\\vendor\\css-hamburgers\\hamburgers.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\css-hamburgers\\hamburgers.min.css",
+      "PackagePath": "staticwebassets\\vendor\\css-hamburgers\\hamburgers.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\jquery\\jquery-3.2.1.min.js",
+      "PackagePath": "staticwebassets\\vendor\\jquery\\jquery-3.2.1.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\select2\\select2.css",
+      "PackagePath": "staticwebassets\\vendor\\select2\\select2.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\select2\\select2.js",
+      "PackagePath": "staticwebassets\\vendor\\select2\\select2.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\select2\\select2.min.css",
+      "PackagePath": "staticwebassets\\vendor\\select2\\select2.min.css"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\select2\\select2.min.js",
+      "PackagePath": "staticwebassets\\vendor\\select2\\select2.min.js"
+    },
+    {
+      "Id": "C:\\Users\\CFTV\\Documents\\F&F Security\\wwwroot\\vendor\\tilt\\tilt.jquery.min.js",
+      "PackagePath": "staticwebassets\\vendor\\tilt\\tilt.jquery.min.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.F.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.F.props",
+      "PackagePath": "build\\F.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.F.props",
+      "PackagePath": "buildMultiTargeting\\F.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.F.props",
+      "PackagePath": "buildTransitive\\F.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

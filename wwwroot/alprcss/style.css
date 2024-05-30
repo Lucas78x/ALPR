@@ -1,0 +1,29 @@
+  body {
+            background: url('molecules-technology-with-polygonal-shapes-connecting-dots-lines_7247-1742.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+        .card {
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo transparente */
+        }
+		
+        .btn-secondary, .btn-primary {
+            background-color: #2db83d; /* Fundo transparente para botões */
+            border: none;
+        }
+		
+	.list-group-item 
+	{
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #000; /* Adiciona uma borda inferior preta */
+}
+		.bg-primary
+		{
+    background-color: #2db83d !important;
+        }
+
+

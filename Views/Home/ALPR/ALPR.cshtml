@@ -1,0 +1,206 @@
+<?php
+
+session_start();
+
+$username = "";
+
+if($_COOKIE['username'])
+{
+$username = $_COOKIE['username'];
+}
+
+require_once 'Fuctions/Validation.php'; // Inclui o arquivo com funções auxiliares
+include 'Request/Alerts.php';
+// Verifica se o usuário está logado
+if (!isLoggedIn($username)) {
+    // Se não estiver logado, redireciona para a página de login
+    header("Location: ../../Login/index.php");
+    exit;
+}
+
+$tempo_atualizacao = 20; 
+
+header("refresh: $tempo_atualizacao;");
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>F&F Security Portal</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <link href="css/Style.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    
+    <style>
+.text-nowrap {
+    display: inline-block; /* Para permitir que a div se expanda horizontalmente */
+    white-space: nowrap; /* Evita que o texto quebre */
+    overflow-wrap: break-word; /* Permite a quebra de palavra quando necessário */
+}
+
+.text-nowrap > * {
+    display: inline-block; /* Para permitir que as divs dentro de .text-nowrap sejam colocadas em linhas separadas */
+}
+    </style>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">F & F Security </a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $username; ?> <b class="caret"></b></a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                        <a href="#" onclick="logoutAndClearCache()"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+
+                        <script>
+                        function logoutAndClearCache() {
+                         var xhr = new XMLHttpRequest();
+                         xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4 && xhr.status == 200) 
+                        {
+                           window.location.href = "../../Login/index.php";
+                        }
+                        };
+                         xhr.open("GET", "Logout/remove.php", true);
+                         xhr.send();
+                         }
+                        </script>
+                        
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <<li class="active">
+                        <a><i class="fa fa-solid fa-camera"></i> ALPR</a>
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
+                    </li>
+                    <li>
+                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="#">Dropdown Item</a>
+                            </li>
+                            <li>
+                                <a href="#">Dropdown Item</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Câmeras LPR
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-solid fa-camera"></i> Câmeras
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- /. EDIT LPR-->
+                <div class="row">
+                <div class="container mt-5">
+                  <h2>Câmeras Registradas</h2>
+                   <?php include 'cameras.php'; ?>
+                   <a href="adicionar.php" class="btn btn-primary mt-3"><i class="fa fas fa-plus"></i> Adicionar Câmera</a>
+                  </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

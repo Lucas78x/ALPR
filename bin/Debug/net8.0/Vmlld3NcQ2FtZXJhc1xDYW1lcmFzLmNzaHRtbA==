@@ -1,0 +1,199 @@
+@{
+    ViewData["Title"] = "Câmeras LPR";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="~/alprcss/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5 d-flex justify-content-center align-items-center">
+        <div class="w-50">
+            <!-- Botão de retorno -->
+            <button onclick="goBack()" class="btn btn-secondary mb-4">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </button>
+
+            <!-- Formulário para adicionar/editar câmeras -->
+            <div id="cameraForm" class="card mb-4 p-3 shadow-sm">
+                <div class="card-body p-3">
+                    <h5 id="formTitle" class="card-title">Adicionar Câmera</h5>
+                    <form id="cameraFormContent">
+                        <div class="form-group">
+                            <label for="cameraName">Nome da Câmera</label>
+                            <input type="text" class="form-control" id="cameraName" placeholder="Insira o nome da câmera">
+                        </div>
+                        <div class="form-group">
+                            <label for="cameraUrl">URL da Câmera</label>
+                            <input type="text" class="form-control" id="cameraUrl" placeholder="Insira o URL da câmera">
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="saveCameraBtn">Salvar</button>
+                        <button type="button" class="btn btn-secondary" id="cancelEditBtn" style="display: none;">Cancelar</button>
+                        <span class="camera-status"></span>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Lista de Câmeras -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Lista de Câmeras</h5>
+                </div>
+                <ul class="list-group list-group-flush" id="cameraList">
+                    <!-- As câmeras serão adicionadas aqui dinamicamente -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkCameraStatus() {
+
+            cameras.forEach(camera => {
+                fetch('@Url.Action("CheckCameraStatus", "Cameras")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ rtsp: camera.rtsp }) // Enviando a URL RTSP como um objeto
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            var status = data.status;
+                            camera.status = status ? 'ok' : 'off';
+                        } else {
+                            console.error('Erro ao verificar o status da câmera:', data.error);
+                        }
+                        // Renderiza a lista de câmeras atualizada
+                        renderCameraList();
+                    })
+                    .catch(error => {
+                        console.error('Erro ao verificar o status da câmera:', error);
+                    });
+            });
+        }
+    </script>
+    <script>
+        let cameras = [];
+        let editingIndex = -1;
+
+        document.getElementById('cameraFormContent').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const name = document.getElementById('cameraName').value;
+            const url = document.getElementById('cameraUrl').value;
+
+            if (editingIndex >= 0) {
+                cameras[editingIndex] = { name, url };
+                editingIndex = -1;
+                document.getElementById('formTitle').innerText = 'Adicionar Câmera';
+                document.getElementById('saveCameraBtn').innerText = 'Salvar';
+                document.getElementById('cancelEditBtn').style.display = 'none';
+            } else {
+                cameras.push({ name, url });
+            }
+
+            document.getElementById('cameraName').value = '';
+            document.getElementById('cameraUrl').value = '';
+            checkCameraStatus(url);
+        });
+
+        document.getElementById('cancelEditBtn').addEventListener('click', function () {
+            editingIndex = -1;
+            document.getElementById('formTitle').innerText = 'Adicionar Câmera';
+            document.getElementById('saveCameraBtn').innerText = 'Salvar';
+            document.getElementById('cancelEditBtn').style.display = 'none';
+            document.getElementById('cameraName').value = '';
+            document.getElementById('cameraUrl').value = '';
+        });
+
+        function renderCameraList() {
+            const cameraList = document.getElementById('cameraList');
+            cameraList.innerHTML = '';
+            cameras.forEach((camera, index) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                // Verifica o status da câmera e define a classe do ícone de círculo correspondente
+                const circleIconClass = camera.status === 'on' ? 'fas fa-solid fa-globe status-circle on' : 'fas fa-solid fa-ban status-circle off';
+                if (circleIconClass === 'fas fa-solid fa-ban status-circle off') {
+                    listItem.innerHTML = `
+                                                                                <span>
+                                                                                    <strong>${camera.name}</strong><br>
+                                                                                    <small>${camera.url}</small>
+                                                                                </span>
+                                                                                <span>
+                                                                                    <!-- Ícone de círculo de status -->
+                                                                                    <style>
+                                                                                   .status-circle {
+                                                                                      padding: .25rem .5rem;
+                                                                                      font-size: 17px;
+                                                                                      line-height: 1.5;
+                                                                                      border-radius: .2rem;
+                                                                                   }
+                                                                                    </style>
+                                                                                    <button class="btn btn-sm btn-warning mr-2" onclick="editCamera(${index})"><i class="fas fa-edit"></i></button>
+                                                                                    <button class="btn btn-sm btn-danger" onclick="deleteCamera(${index})"><i class="fas fa-trash-alt"></i></button>
+                                                                                    <i class="${circleIconClass}"></i>
+                                                                                </span>
+                                                                            `;
+                }
+                else {
+                    listItem.innerHTML = `
+                                                                                <span>
+                                                                                    <strong>${camera.name}</strong><br>
+                                                                                    <small>${camera.url}</small>
+                                                                                </span>
+                                                                                <span>
+                                                                                    <!-- Ícone de círculo de status -->
+                                                                                    <style>
+                                                                                   .status-circle {
+                                                                                      padding: .25rem .5rem;
+                                                                                      font-size: 22px;
+                                                                                      line-height: 1.5;
+                                                                                      border-radius: .2rem;
+                                                                                   }
+                                                                                    </style>
+                                                                                    <button class="btn btn-sm btn-warning mr-2" onclick="editCamera(${index})"><i class="fas fa-edit"></i></button>
+                                                                                    <button class="btn btn-sm btn-danger" onclick="deleteCamera(${index})"><i class="fas fa-trash-alt"></i></button>
+                                                                                     <i class="${circleIconClass}"></i>
+                                                                                </span>
+                                                                            `;
+                }
+
+                cameraList.appendChild(listItem);
+            });
+        }
+
+        function editCamera(index) {
+            document.getElementById('formTitle').innerText = 'Editar Câmera';
+            document.getElementById('saveCameraBtn').innerText = 'Atualizar';
+            document.getElementById('cancelEditBtn').style.display = 'inline-block';
+            document.getElementById('cameraName').value = cameras[index].name;
+            document.getElementById('cameraUrl').value = cameras[index].url;
+            editingIndex = index;
+        }
+
+        function deleteCamera(index) {
+            cameras.splice(index, 1);
+            renderCameraList();
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Inicializa a lista de câmeras
+        renderCameraList();
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>

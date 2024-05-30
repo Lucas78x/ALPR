@@ -1,0 +1,33 @@
+/* Custom styles for dashboard */
+
+/* Sidebar */
+#accordionSidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: #4e73df;
+}
+
+/* Page Content Wrapper */
+#content-wrapper {
+    margin-left: 250px;
+    padding-top: 60px;
+}
+
+/* Topbar */
+.topbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #d1d3e2;
+}
+
+/* Footer */
+.sticky-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #ffffff;
+    border-top: 1px solid #d1d3e2;
+}
