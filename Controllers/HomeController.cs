@@ -68,7 +68,7 @@ namespace F.Controllers
             try
             {
 
-                var response = await client.GetAsync($"https://172.30.2.91:7788/api/v1/account/alertsinfo?AccountId={id}");
+                var response = await client.GetAsync($"https://localhost:7788/api/v1/account/alertsinfo?AccountId={id}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -211,7 +211,7 @@ namespace F.Controllers
             try
             {
 
-                var response = await client.PostAsync("https://172.30.2.91:7788/api/v1/account/accountinfo", content);
+                var response = await client.PostAsync("https://localhost:7788/api/v1/account/accountinfo", content);
 
                 if (response.IsSuccessStatusCode)
                 {
