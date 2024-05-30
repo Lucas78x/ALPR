@@ -1,5 +1,6 @@
 using F.Models;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,10 +23,12 @@ namespace F.Controllers
     public class HomeController : Controller
     {
         private readonly HttpClient _httpClient;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public HomeController(HttpClient httpClient)
+        public HomeController(HttpClient httpClient,IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClient;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
