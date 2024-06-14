@@ -43,7 +43,7 @@ namespace F.Controllers
             return View("index");
         }
 
-      
+
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
@@ -56,16 +56,16 @@ namespace F.Controllers
             ViewBag.Email = email;
 
             var places = new List<PlaceAlertsModel>();
-            ConcurrentBag<Imagem> imagensDoMes = new ConcurrentBag<Imagem>();
-            ConcurrentBag<Imagem> alertasRecentes = new ConcurrentBag<Imagem>();
+            var imagensDoMes = new ConcurrentBag<Imagem>();
+            var alertasRecentes = new ConcurrentBag<Imagem>();
             var viewModel = new ViewModel();
 
-            var handler = new HttpClientHandler
+            using var handler = new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
             };
 
-            var client = new HttpClient(handler);
+            using var client = new HttpClient(handler);
             var id = HttpContext.Session.GetInt32("Id") ?? -1;
 
             try
@@ -103,7 +103,7 @@ namespace F.Controllers
                     if (!Directory.Exists(pastaImagens))
                         Directory.CreateDirectory(pastaImagens);
 
-                    string[] arquivos = Directory.GetFiles(pastaImagens);
+                    var arquivos = Directory.GetFiles(pastaImagens);
 
                     var arquivoTasks = arquivos.Select(async arquivo =>
                     {
@@ -121,7 +121,7 @@ namespace F.Controllers
                             imagensDoMes.Add(imagem);
 
                             var alerta = places?.FirstOrDefault(x => x.Placa == placa);
-                            if (alerta != null && imagem.DateTime.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
+                            if (alerta != null && dataHora.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
                             {
                                 alertasRecentes.Add(imagem);
                             }
@@ -142,6 +142,7 @@ namespace F.Controllers
 
             return View("Dashboard", viewModel);
         }
+
         private static void GetOldAlertsValue(List<Imagem> Alertarecentes, ref ViewModel viewModel, int id)
         {
             string newfilePath = $"{id}.txt";
