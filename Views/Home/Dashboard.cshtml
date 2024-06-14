@@ -441,11 +441,7 @@
                                 <div class="text-right">
                                     <label for="camera-filter">Filtrar por câmera:</label>
                                     <select id="camera-filter" name="camera">
-                                        <option value="">Todas as Câmeras</option>
-                                        @foreach (var camera in Model.Cameras.Cameras)
-                                        {
-                                            <option value="@camera.Name">@camera.Name</option>
-                                        }
+                                        <option value="">Todas as Câmeras</option>                          
                                     </select>
                                     <input type="hidden" name="ImagemRecentes" value="@JsonConvert.SerializeObject(Model.ImagemRecentes)" />
                                     <button type="submit">Filtrar</button>
