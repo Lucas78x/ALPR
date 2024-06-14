@@ -1,0 +1,458 @@
+@using F.Models;
+@{
+    ViewData["Title"] = "F&F Security - Alertas";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="~/dashboardcss/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="~/dashboardcss/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="~/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        /* Custom CSS */
+
+        .page-header {
+            margin-top: 0;
+            padding-top: 20px;
+        }
+
+        .breadcrumb {
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control {
+            border-radius: 0;
+            box-shadow: none;
+            border-color: #ddd;
+        }
+
+        .btn-default {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+            transition: all 0.3s;
+        }
+
+            .btn-default:hover {
+                background-color: #007bff;
+                border-color: #269abc;
+            }
+
+        .table-responsive {
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+        }
+
+        .table thead th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-danger {
+            transition: all 0.3s;
+        }
+
+        .card {
+            border: 1px solid #e2e2e2;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e2e2e2;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+            .card-body .fa {
+                color: black;
+            }
+
+            .card-body .font-weight-bold {
+                color: #333;
+            }
+
+            .card-body span {
+                display: block;
+                margin-top: 5px;
+            }
+
+            .card-body .btn-sm {
+                padding: 5px 10px;
+                font-size: 12px;
+                border-radius: 5px;
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .card-body .btn-sm {
+                margin-right: 10px; /* Adiciona uma margem de 10px para o lado direito */
+            }
+
+                .card-body .btn-sm:hover {
+                    opacity: 0.8;
+                    background-color: #333;
+                }
+
+                .card-body .btn-sm:active {
+                    transform: translateY(2px);
+                    box-shadow: 0 1px 2px #007bff;
+                }
+
+            .card-body .btn-container {
+                margin-top: 10px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .card-body .btn-edit {
+                margin-right: 10px;
+            }
+
+        .btn-danger {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a id="dashboardLink" class="navbar-brand">F & F Security</a>
+                <form id="dashboardForm" action="/Home/Index" method="get" style="display: none;">
+                    <input type="submit" value="Submit" />
+                </form>
+
+                <script>
+                    document.getElementById('dashboardLink').addEventListener('click', function (event) {
+                        event.preventDefault(); // Impede o comportamento padrão do link
+                        this.classList.add('active');
+                        document.getElementById('dashboardForm').submit();
+                    });
+                </script>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>@ViewBag.Email<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a><i class="fa fa-fw fa-gear"></i>Configurações</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <form action="/Home/Logout" method="post" style="display: inline;">
+                                <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer; font: inherit; outline: inherit;">
+                                    <i class="fa fa-fw fa-power-off"></i> Sair
+                                </button>
+                                @Html.AntiForgeryToken()
+                            </form>
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Painel</a>
+                    </li>
+                    <li>
+                        <a id="chartLink">
+                            <i class="fa fa-solid fa-camera"></i>ﾠALPR
+                        </a>
+                        <form id="chartForm" action="/Cameras/RedirectAlpr" method="post" style="display: none;">
+                            <input type="submit" value="Submit" />
+                        </form>
+                        <script>
+                            document.getElementById('chartLink').addEventListener('click', function () {
+                                this.classList.add('active');
+                                document.getElementById('chartForm').submit();
+                            });
+                        </script>
+                    </li>
+                    <li>
+                        <a id="settingsLink">
+                            <i class="fa fa-fw fa-wrench"></i>Cadastro
+                        </a>
+                        <form id="settingsForm" action="/Home/RedirectSettings" method="post" style="display: none;">
+                            <input type="submit" value="Submit" />
+                        </form>
+                        <script>
+                            document.getElementById('settingsLink').addEventListener('click', function () {
+                                this.classList.add('active');
+                                document.getElementById('settingsForm').submit();
+                            });
+                        </script>
+                    </li>
+                    <li>
+                        <a id="placasLink">
+                            <i class="fa fa-solid fa-car"></i>ﾠPlacas
+                        </a>
+                        <form id="placasForm" action="/Home/RedirectPlacas" method="post" style="display: none;">
+                            <input type="submit" value="Submit" />
+                        </form>
+                        <script>
+                            document.getElementById('placasLink').addEventListener('click', function () {
+                                this.classList.add('active');
+                                document.getElementById('placasForm').submit();
+                            });
+                        </script>
+                    </li>
+                    <li class="active">
+                        <a href="alert-registration.html"><i class="fa fa-fw fa-exclamation-triangle"></i> Alertas</a>
+                    </li>                                 
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Registro de Alertas
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="index.html">Painel</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-exclamation-triangle"></i> Registro de Alertas
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="licensePlate">Placa do Veículo</label>
+                                <input type="text" class="form-control" id="licensePlate" placeholder="Digite a placa do veículo">
+                            </div>
+                            <div class="form-group">
+                                <label for="alertReason">Motivo do Alerta</label>
+                                <input type="text" class="form-control" id="alertReason" placeholder="Digite o motivo do alerta">
+                            </div>
+                            <button type="submit" class="btn btn-default" id="adicionar-placa-alerta" onclick="adicionarPlacaAlerta()">Registrar Alerta</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h2 class="font-weight-bold">Alertas Registrados</h2>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="font-weight-bold">Placas Registradas</h5>
+                            </div>
+                            <div class="card-body">
+                                <div style="max-height: 500px; overflow-y: auto;">
+                                    <table class="table table-bordered table-hover" id="placas-alerta-registradas">
+                                        <tbody>
+                                            <!-- Aqui serão listadas as placas de alerta já registradas -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+
+        <script>
+
+            window.onload = function () {
+                buscarPlacasAlerta();
+            };
+
+            async function buscarPlacasAlerta() {
+                // URL da API para buscar placas de alerta registradas
+                var url = '/api/alertas';
+
+                // Configuração da requisição fetch
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    // Limpa a tabela de placas de alerta registradas
+                    $('#placas-alerta-registradas').find('tr').remove();
+
+                    // Adiciona as placas de alerta registradas à tabela
+                    $.each(data, function (index, placa) {
+                        var time = formatDateTime(placa.createDate);
+                        var card = $('<div class="card mb-3">');
+                        var cardHeader = $('<div class="card-header">');
+                        cardHeader.append($('<h5 class="font-weight-bold">').text());
+                        card.append(cardHeader);
+                        var cardBody = $('<div class="card-body">');
+                        cardBody.append($('<p><i class="fa fas fa-clipboard"></i> ' + 'Motivo do Alerta: ' + placa.name + ' </p>'));
+                        cardBody.append($('<p><i class="fa fa-fw fa-car"></i> ' + 'Placa: ' + placa.placa + '</p>'));
+                        cardBody.append($('<p><i class="fa fa-calendar fa-lg"></i> ' + 'Data: ' + time + '</p>'));
+                        cardBody.append($('<button type="button" class="btn btn-danger btn-sm" id="remover-alerta"><i class="fa fas fa-trash-alt"></i> Remover Alerta</button>'));
+                        cardBody.append($('<button type="button" class="btn btn-primary btn-sm" id="editar-alerta"><i class="fa fas fa-edit"></i> Editar Alerta</button>'));
+                        card.append(cardBody);
+                        $('#placas-alerta-registradas').append(card);
+                    });
+                } catch (error) {
+                    console.error('Erro ao buscar placas de alerta:', error);
+                }
+            }
+
+            async function adicionarPlacaAlerta() {
+                try {
+                    // Captura os valores dos campos de entrada
+                    var placa = $('#licensePlate').val();
+                    var motivo = $('#alertReason').val();
+
+                    // URL da API para adicionar placa de alerta registrada
+                    var url = '/api/addalerta';
+
+                    // Configuração da requisição fetch
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            placa: placa,
+                            motivo: motivo
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (data != null) {
+                        location.reload();
+                    }
+                } catch (error) {
+                    console.error('Erro ao registrar placa de alerta:', error);
+                }
+            }
+
+            // Remover Placa de Alerta Registrada
+            function removerPlacaAlerta(placa) {
+                // URL da API para remover placa de alerta registrada
+                var url = 'https://api.placasalerta.com/remover';
+
+                // Configuração da requisição AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: JSON.stringify({
+                        placa: placa
+                    }),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (data) {
+                        // Exibe uma mensagem de confirmação
+                        alert('Placa de alerta removida com sucesso!');
+                    }
+                });
+            }
+
+            // Editar Placa de Alerta Registrada
+            function editarPlacaAlerta(placa, motivo) {
+                // URL da API para editar placa de alerta registrada
+                var url = 'https://api.placasalerta.com/editar';
+
+                // Configuração da requisição AJAX
+                $.ajax({
+                    type: 'PUT',
+                    url: url,
+                    data: JSON.stringify({
+                        placa: placa,
+                        motivo: motivo
+                    }),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (data) {
+                        // Exibe uma mensagem de confirmação
+                        alert('Placa de alerta editada com sucesso!');
+                    }
+                });
+            }
+
+            // Chama a função para buscar placas de alerta registradas ao carregar a página
+            $(document).ready(function () {
+                buscarPlacasAlerta();
+            });
+
+            function formatDateTime(dateTimeString) {
+                const dateTime = new Date(dateTimeString);
+                return dateTime.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+            }
+        </script>
+        <!-- /#page-wrapper -->
+
+    </div>
+
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.0 -->
+    <script src="~/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

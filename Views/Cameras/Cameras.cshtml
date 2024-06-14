@@ -58,6 +58,10 @@
         let cameras = [];
         let editingIndex = -1;
 
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchCameras();
+        });
+
         document.getElementById('cameraFormContent').addEventListener('submit', function (event) {
             event.preventDefault();
             const name = document.getElementById('cameraName').value;
@@ -69,8 +73,12 @@
                 document.getElementById('formTitle').innerText = 'Adicionar Câmera';
                 document.getElementById('saveCameraBtn').innerText = 'Salvar';
                 document.getElementById('cancelEditBtn').style.display = 'none';
-            } else {
+            }
+            else {
+
                 cameras.push({ name, url });
+                console.log('Adicionando câmera:', { name, url });
+                AddCamera({ name, url });
             }
 
             document.getElementById('cameraName').value = '';
@@ -86,6 +94,47 @@
             document.getElementById('cameraName').value = '';
             document.getElementById('cameraUrl').value = '';
         });
+
+        async function fetchCameras() {
+            try {
+                const response = await fetch('/api/cameras');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                cameras = data.map(camera => {
+                    console.log('Camera:', camera);
+                    return {
+                        name: camera.camera,
+                        url: camera.rtsp,
+                        status: camera.status
+                    };
+                });
+                console.log('Dados recebidos da API:', cameras);
+                renderCameraList();
+            } catch (error) {
+                console.error('Erro ao buscar a lista de câmeras:', error);
+            }
+        }
+
+        async function AddCamera(camera) {
+            const response = await fetch(`/Cameras/AddCamera`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Camera: camera.name,
+                    RTSP: camera.url,
+                    Status: 'active'
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+        }
 
         function checkCameraStatus(rtsp) {
 
@@ -115,16 +164,16 @@
                         const circleIconClass = camera.status === 'on' ? 'fas fa-solid fa-globe status-circle on' : 'fas fa-solid fa-ban status-circle off';
 
                         listItem.innerHTML = `
-                                            <span>
-                                                <strong>${camera.name}</strong><br>
-                                                <small>${camera.url}</small>
-                                            </span>
-                                            <span>
-                                                <button class="btn btn-sm btn-warning mr-2" onclick="editCamera(${index})"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-danger" onclick="deleteCamera(${index})"><i class="fas fa-trash-alt"></i></button>
-                                                <i class="${circleIconClass}"></i>
-                                            </span>
-                                        `;
+                                                                                                    <span>
+                                                                                                        <strong>${camera.name}</strong><br>
+                                                                                                        <small>${camera.url}</small>
+                                                                                                    </span>
+                                                                                                    <span>
+                                                                                                        <button class="btn btn-sm btn-warning mr-2" onclick="editCamera(${index})"><i class="fas fa-edit"></i></button>
+                                                                                                        <button class="btn btn-sm btn-danger" onclick="deleteCamera(${index})"><i class="fas fa-trash-alt"></i></button>
+                                                                                                        <i class="${circleIconClass}"></i>
+                                                                                                    </span>
+                                                                                                `;
 
                         cameraList.appendChild(listItem);
                     })
@@ -136,38 +185,40 @@
             // Add styles only once
             const style = document.createElement('style');
             style.innerHTML = `
-                .status-circle {
-                    padding: .25rem .5rem;
-                    font-size: 20px;
-                    line-height: 1.5;
-                    border-radius: .2rem;
-                }
-                .status-circle.off {
-                    font-size: 17px;
-                }
-                #cameraList {
-                    max-height: 400px;
-                    overflow-y: auto;
-                }
-                #cameraList .list-group-item {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-                #cameraList .list-group-item small {
-                    display: block;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    max-width: 200px;
-                }
-                #cameraList .list-group-item small:hover {
-                    overflow: visible;
-                    white-space: normal;
-                }
-            `;
+                                                                        .status-circle {
+                                                                            padding: .25rem .5rem;
+                                                                            font-size: 20px;
+                                                                            line-height: 1.5;
+                                                                            border-radius: .2rem;
+                                                                        }
+                                                                        .status-circle.off {
+                                                                            font-size: 17px;
+                                                                        }
+                                                                        #cameraList {
+                                                                            max-height: 400px;
+                                                                            overflow-y: auto;
+                                                                        }
+                                                                        #cameraList .list-group-item {
+                                                                            display: flex;
+                                                                            justify-content: space-between;
+                                                                            align-items: center;
+                                                                        }
+                                                                        #cameraList .list-group-item small {
+                                                                            display: block;
+                                                                            white-space: nowrap;
+                                                                            overflow: hidden;
+                                                                            text-overflow: ellipsis;
+                                                                            max-width: 200px;
+                                                                        }
+                                                                        #cameraList .list-group-item small:hover {
+                                                                            overflow: visible;
+                                                                            white-space: normal;
+                                                                        }
+                                                                    `;
             document.head.appendChild(style);
         }
+
+
 
 
         function editCamera(index) {
@@ -177,11 +228,53 @@
             document.getElementById('cameraName').value = cameras[index].name;
             document.getElementById('cameraUrl').value = cameras[index].url;
             editingIndex = index;
+            document.getElementById('saveCameraBtn').onclick = function () {
+                updateCamera(editingIndex);
+            };
         }
 
-        function deleteCamera(index) {
-            cameras.splice(index, 1);
-            renderCameraList();
+
+        async function updateCamera(index) {
+            try {
+
+                const response = await fetch(`/api/cameras/${index}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Camera: cameras[index].name,
+                        RTSP: cameras[index].url,
+                        Status: cameras[index].status
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                console.log('Câmera atualizada com sucesso');
+            } catch (error) {
+                console.error('Erro ao atualizar a câmera:', error);
+            }
+        }
+
+        async function deleteCamera(index) {
+            try {
+                const response = await fetch(`/api/cameras/${index}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                cameras.splice(index, 1);
+                renderCameraList();
+                console.log('Câmera excluída com sucesso');
+            } catch (error) {
+                console.error('Erro ao excluir a câmera:', error);
+            }
         }
 
         function goBack() {

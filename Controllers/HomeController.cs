@@ -1,16 +1,11 @@
 using F.Models;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net;
-using System.Numerics;
-using System.Reflection;
 using System.Text;
-using System.Text.Json;
 using System.Text.RegularExpressions;
+using HtmlAgilityPack;
+using System.Reflection;
 
 namespace F.Controllers
 {
@@ -24,11 +19,14 @@ namespace F.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IConfiguration _configuration;
+        private static readonly Dictionary<string, string> Cache = new();
 
-        public HomeController(HttpClient httpClient,IWebHostEnvironment webHostEnvironment)
+        public HomeController(HttpClient httpClient, IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _webHostEnvironment = webHostEnvironment;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -46,7 +44,7 @@ namespace F.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Dashboard()
-        {
+        {      
             var email = HttpContext.Session.GetString("Email");
             if (string.IsNullOrEmpty(email))
             {
@@ -71,6 +69,8 @@ namespace F.Controllers
             try
             {
 
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _configuration["Authentication:TokenKey"]);
+
                 var response = await client.GetAsync($"https://localhost:7788/api/v1/account/alertsinfo?AccountId={id}");
 
                 if (response.IsSuccessStatusCode)
@@ -83,53 +83,52 @@ namespace F.Controllers
 
             }
 
-            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Cameras", "cameras.json");
+            CameraList cameraList = new();
 
-            List<CameraInfo> cameraList = new();
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Authentication:ApiPath"]);
 
             if (System.IO.File.Exists(filePath))
             {
-                // Lê o conteúdo do arquivo
+                // Lï¿½ o conteï¿½do do arquivo
                 string json = System.IO.File.ReadAllText(filePath);
-
                 // Desserializa o JSON em uma lista de objetos CameraInfo
-                cameraList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CameraInfo>>(json);
+                cameraList = Newtonsoft.Json.JsonConvert.DeserializeObject<CameraList>(json);
 
-
-                // Itera sobre a lista de objetos CameraInfo para obter os nomes das câmeras
-                foreach (var cameraInfo in cameraList)
+                // Itera sobre a lista de objetos CameraInfo para obter os nomes das cï¿½meras
+                foreach (var cameraInfo in cameraList.Cameras)
                 {
-
                     string folderName = $"{DateTime.Now.ToString("MM/yyyy").Replace("/", string.Empty)}";
-                    string pastaImagens = Path.Combine(_webHostEnvironment.WebRootPath, "Cameras", cameraInfo.Camera, folderName);                  
 
-                    if (System.IO.File.Exists(pastaImagens))
-                        continue;
 
-                    // Obter o mês e o ano atual
+                    string pastaImagens = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Authentication:ImgPath"], cameraInfo.Name, folderName);
+
+                    if (!System.IO.Directory.Exists(pastaImagens))
+                        System.IO.Directory.CreateDirectory(pastaImagens);
+
+
+                    // Obter o mï¿½s e o ano atual
                     int mesAtual = DateTime.Now.Month;
                     int anoAtual = DateTime.Now.Year;
-
 
                     // Listar todos os arquivos na pasta de imagens
                     string[] arquivos = Directory.GetFiles(pastaImagens);
 
-                    // Filtrar os arquivos pelo mês e ano atual
+                    // Filtrar os arquivos pelo mï¿½s e ano atual
                     foreach (string arquivo in arquivos)
                     {
                         DateTime dataCriacao = System.IO.File.GetCreationTime(arquivo);
 
                         if (dataCriacao.Month == mesAtual && dataCriacao.Year == anoAtual)
                         {
-                            // Extrair informações do nome do arquivo (exemplo: Modelo_Placa_2024-05-25.jpg)
+                            // Extrair informaï¿½ï¿½es do nome do arquivo (exemplo: Modelo_Placa_2024-05-25.jpg)
                             string[] partesNomeArquivo = Path.GetFileNameWithoutExtension(arquivo).Split('_');
-                            string modelo = partesNomeArquivo[0];
                             string placa = partesNomeArquivo[1];
+                            string modelo = GetPlaca(placa);
                             DateTime dataHora = System.IO.File.GetCreationTime(arquivo);
-                            string url = await GetUrlByApi(arquivo);
+                            string url = GetUrlByApi(arquivo).Result;
 
-                            // Criar objeto Imagem e adicionar à lista
-                            Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Camera);
+                            // Criar objeto Imagem e adicionar ï¿½ lista
+                            Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
                             imagensDoMes.Add(imagem);
 
                             var alerta = places?.FirstOrDefault(x => x.Placa == placa);
@@ -152,7 +151,69 @@ namespace F.Controllers
             viewModel.ImagemRecentes = imagensDoMes;
             viewModel.Cameras = cameraList;
 
+            GetOldAlertsValue(Alertarecentes, ref viewModel, id);
+
+            viewModel.AlertasRecentes = Alertarecentes;
+            viewModel.ImagemRecentes = imagensDoMes;
+            viewModel.Cameras = cameraList;
+
+            GetOldAlertsValue(Alertarecentes, ref viewModel, id);
+
+            var imagemRecentes = viewModel?.ImagemRecentes;
+            DateTime? lastImage = null;
+            int lastindex = -1;
+
+            if (imagemRecentes != null && imagemRecentes.Any())
+            {
+                lastImage = imagemRecentes
+                    .OrderByDescending(imagemRecente => imagemRecente.DateTime)
+                    .Select(imagemRecente => imagemRecente.DateTime)
+                    .FirstOrDefault();
+
+                if (lastImage != null)
+                {
+                    lastindex = Array.IndexOf(imagemRecentes.Select(imagemRecente => imagemRecente.DateTime).ToArray(), lastImage.Value);
+                }
+            }
+
+            viewModel.LastIndex = lastindex;
+
             return View("Dashboard", viewModel);
+        }
+
+        private static void GetOldAlertsValue(List<Imagem> Alertarecentes, ref ViewModel viewModel, int id)
+        {
+            string newfilePath = $"{id}.txt";
+
+            int novoValor = Alertarecentes.Count; // Substitua este valor pelo valor que vocï¿½ deseja gravar no arquivo
+
+            if (System.IO.File.Exists(newfilePath))
+            {
+                // Se o arquivo existe, lï¿½ o conteï¿½do atual
+                string conteudoAtual = System.IO.File.ReadAllText(newfilePath);
+                int valorAtual;
+
+                // Tenta converter o conteï¿½do atual para um inteiro
+                if (int.TryParse(conteudoAtual, out valorAtual))
+                {
+                    viewModel.alertsOld = valorAtual;
+                    // Atualiza o valor existente com o novo valor
+                    valorAtual = novoValor;
+                }
+                else
+                {
+                    // Se nï¿½o for possï¿½vel converter, apenas substitui com o novo valor
+                    valorAtual = novoValor;
+                }
+
+                // Escreve o novo valor no arquivo
+                System.IO.File.WriteAllText(newfilePath, valorAtual.ToString());
+            }
+            else
+            {
+                // Se o arquivo nï¿½o existe, cria o arquivo e escreve o novo valor
+                System.IO.File.WriteAllText(newfilePath, novoValor.ToString());
+            }
         }
 
         public IActionResult FilterByCamera(string camera, string ImagemRecentes)
@@ -180,12 +241,12 @@ namespace F.Controllers
         {
             if (string.IsNullOrEmpty(email))
             {
-                ViewBag.ErrorMessage = "Email inválido.";
+                ViewBag.ErrorMessage = "Email invalido.";
                 return View("Index");
             }
             else if (string.IsNullOrEmpty(senha))
             {
-                ViewBag.ErrorMessage = "Senha inválida.";
+                ViewBag.ErrorMessage = "Senha invalida.";
                 return View("Index");
             }
 
@@ -194,7 +255,7 @@ namespace F.Controllers
 
             if (!match.Success)
             {
-                ViewBag.ErrorMessage = "Email inválido.";
+                ViewBag.ErrorMessage = "Email invalido.";
                 return View("Index");
             }
             var handler = new HttpClientHandler
@@ -203,7 +264,7 @@ namespace F.Controllers
             };
 
             var client = new HttpClient(handler);
-
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _configuration["Authentication:TokenKey"]);
             var requestBody = new
             {
                 Email = email,
@@ -220,6 +281,7 @@ namespace F.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     HttpContext.Session.SetString("Email", email);
+                    HttpContext.Session.SetString("Password", senha);
                     var id = await response.Content.ReadAsStringAsync();
                     HttpContext.Session.SetInt32("Id", int.Parse(id));
                     return RedirectToAction("Dashboard");
@@ -239,7 +301,7 @@ namespace F.Controllers
                         }
                         else
                         {
-                            ViewBag.ErrorMessage = "Usuário ou senha inválidos.";
+                            ViewBag.ErrorMessage = "Usuario ou senha invï¿½lidos.";
                         }
                     }
                     else
@@ -254,14 +316,366 @@ namespace F.Controllers
             catch (Exception ex)
             {
 
-                ViewBag.ErrorMessage = "Host não disponivel.";
+                ViewBag.ErrorMessage = "Host nao disponivel.";
                 return View("Index");
             }
         }
 
-        static async Task<string> GetUrlByApi(string url)
+        [HttpPost]
+        [Route("api/ChangeEmail/{email}")]
+        public async Task<IActionResult> ChangeEmail(string email)
         {
-            string apiKey = "54d227aed6d1bbbf4bb3984192b05837"; // Substitua com sua API key
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Match match = regex.Match(email);
+
+            if (!match.Success || string.IsNullOrEmpty(email))
+            {
+                ViewBag.ErrorMessage = "Email invalido.";
+                return View("Settings");
+            }
+
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+
+            var client = new HttpClient(handler);
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _configuration["Authentication:TokenKey"]);
+            var requestBody = new
+            {
+                Id = HttpContext.Session.GetInt32("Id"),
+                Value = email
+            };
+
+            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+
+            try
+            {
+
+                var response = await client.PostAsync("https://localhost:7788/api/v1/account/changeemail", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    HttpContext.Session.SetString("Email", email);
+                    ViewBag.Email = email;
+                    return Ok();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return BadRequest();
+        }
+        [HttpPost]
+        [Route("api/ChangePassword/{password}")]
+        public async Task<IActionResult> ChangePassword(string password)
+        {
+
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+
+            var client = new HttpClient(handler);
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _configuration["Authentication:TokenKey"]);
+            var requestBody = new
+            {
+                Id = HttpContext.Session.GetInt32("Id"),
+                Value = password
+            };
+
+            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+
+            try
+            {
+
+                var response = await client.PostAsync("https://localhost:7788/api/v1/account/changepassword", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    HttpContext.Session.Clear();
+
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return BadRequest();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Settings()
+        {
+            var email = HttpContext.Session.GetString("Email");
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Email = email;
+            ViewBag.Password = HttpContext.Session.GetString("Password");
+            ViewBag.Id = HttpContext.Session.GetInt32("Id");
+
+            return View("Settings");
+        }
+        public async Task<List<Imagem>> BuscarImagens(string plate, string startDate, string endDate, string camera)
+        {
+            plate = plate.ToUpper();
+            DateTime startDateTime = DateTime.Parse(startDate);
+            DateTime endDateTime = DateTime.Parse(endDate);
+
+            var imagens = new List<Imagem>();
+
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Authentication:ApiPath"]);
+            if (System.IO.File.Exists(filePath))
+            {
+                string json = await System.IO.File.ReadAllTextAsync(filePath);
+                List<CameraInfo> cameraList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CameraInfo>>(json);
+
+                var cameraInfo = cameraList.FirstOrDefault(x => x.Name == camera);
+                if (cameraInfo != null)
+                {
+                    string folderName = DateTime.Now.ToString("MM/yyyy").Replace("/", string.Empty);
+                    var pastaImagens = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Authentication:ImgPath"], cameraInfo.Name, folderName);
+
+                    if (System.IO.Directory.Exists(pastaImagens))
+                    {
+                        var arquivos = Directory.GetFiles(pastaImagens)
+                                                 .Where(file => file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase));
+
+                        foreach (var arquivo in arquivos)
+                        {
+                            string[] partesNomeArquivo = Path.GetFileNameWithoutExtension(arquivo).Split('_');
+                            string placa = partesNomeArquivo[1];
+                            DateTime dataHora = System.IO.File.GetCreationTime(arquivo);
+
+                            if (dataHora >= startDateTime && dataHora <= endDateTime && placa == plate)
+                            {
+                                string url = await GetUrlByApi(arquivo);
+
+                                Imagem imagem = new Imagem(GetPlaca(placa), placa, dataHora, url, cameraInfo.Name);
+                                imagens.Add(imagem);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return imagens;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RedirectSettings()
+        {
+            var email = HttpContext.Session.GetString("Email");
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Settings");
+        }
+
+        [HttpPost]
+        public IActionResult RedirectAlertas()
+        {
+            var email = HttpContext.Session.GetString("Email");
+            if (!string.IsNullOrEmpty(email))
+            {
+
+                return RedirectToAction("Alertas");
+            }
+
+            return View("index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Alertas()
+
+        {
+            var email = HttpContext.Session.GetString("Email");
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Email = HttpContext.Session.GetString("Email");
+            return View("Alertas");
+        }
+        [HttpGet]
+        [Route("api/alertas")]
+        public async Task<IActionResult> GetAlertas()
+        {
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+
+            var client = new HttpClient(handler);
+            var id = HttpContext.Session.GetInt32("Id") ?? -1;
+
+            try
+            {
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _configuration["Authentication:TokenKey"]);
+
+                var response = await client.GetAsync($"https://localhost:7788/api/v1/account/alertsinfo?AccountId={id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var places = await response.Content.ReadFromJsonAsync<List<PlaceAlertsModel>>();
+
+                    return Ok(places.OrderBy(x => x.CreateDate));
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return BadRequest();
+        }
+        [HttpPost]
+        [Route("api/addalerta")]
+        public async Task<IActionResult> AddAlertas([FromBody] AddPlaceAlertsModel alert)
+        {
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+
+            var client = new HttpClient(handler);
+            var id = HttpContext.Session.GetInt32("Id") ?? -1;
+
+            try
+            {
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _configuration["Authentication:TokenKey"]);
+                var place = new PlaceAlertsModel(alert.Placa, alert.Motivo);
+                var requestBody = new
+                {
+                    id = place.Id,
+                    name = place.Name,
+                    placa = place.Placa,
+                    createDate = place.CreateDate
+                };
+
+                var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+
+
+
+                var response = await client.PostAsync($"https://localhost:7788/api/v1/account/addalert?AccountId={id}", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return Ok();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return BadRequest();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Placas()
+        {
+            var email = HttpContext.Session.GetString("Email");
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("Index");
+            }
+
+            var viewModel = new ViewModel();
+            CameraList cameraList = new();
+
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Authentication:ApiPath"]);
+            if (System.IO.File.Exists(filePath))
+            {
+                // Lï¿½ o conteï¿½do do arquivo
+                string json = System.IO.File.ReadAllText(filePath);
+
+                // Desserializa o JSON em uma lista de objetos CameraInfo
+                cameraList = Newtonsoft.Json.JsonConvert.DeserializeObject<CameraList>(json);
+
+            }
+            viewModel.Cameras = cameraList;
+            ViewBag.Email = HttpContext.Session.GetString("Email");
+            return View("Placas", viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult RedirectPlacas()
+        {
+            var email = HttpContext.Session.GetString("Email");
+            if (!string.IsNullOrEmpty(email))
+            {
+
+                return RedirectToAction("Placas");
+            }
+
+            return View("index");
+        }
+
+        public string GetPlaca(string placa)
+        {
+
+            if (Cache.TryGetValue(placa, out var cachedResult))
+            {
+                return cachedResult;
+            }
+
+            HtmlWeb web = new();
+            List<HtmlNode> info = Lista(web.Load($"https://placaipva.com.br/placa/{placa}"));
+
+            if (Verifica(info))
+            {
+                string result = FormatResult(info);
+                Cache[placa] = result;
+                return result;
+            }
+            else
+            {
+                info = new List<HtmlNode>(Lista(web.Load($"https://www.keplaca.com/placa/{placa}")));
+                if (Verifica(info))
+                {
+                    string result = FormatResult(info);
+                    Cache[placa] = result;
+                    return result;
+                }
+                else
+                {
+                    info = new List<HtmlNode>(Lista(web.Load($"https://placafipe.com/{placa}")));
+                    if (Verifica(info))
+                    {
+                        string result = FormatResult(info);
+                        Cache[placa] = result;
+                        return result;
+                    }
+                    else
+                    {
+                        info = new List<HtmlNode>(Lista(web.Load($"https://keplaca.com/{placa}")));
+                        if (Verifica(info))
+                        {
+                            string result = FormatResult(info);
+                            Cache[placa] = result;
+                            return result;
+                        }
+                        else
+                        {
+                            Cache[placa] = "Desconhecido";
+                            return "Desconhecido";
+                        }
+                    }
+                }
+            }
+        }
+        public async Task<string> GetUrlByApi(string url)
+        {
             string imagePath = url;
 
             byte[] imageData = System.IO.File.ReadAllBytes(imagePath);
@@ -270,7 +684,7 @@ namespace F.Controllers
             {
                 using (var formData = new MultipartFormDataContent())
                 {
-                    formData.Add(new StringContent(apiKey), "key");
+                    formData.Add(new StringContent(_configuration["Authentication:ApiKey"]), "key");
                     formData.Add(new ByteArrayContent(imageData, 0, imageData.Length), "image", "imagem.jpg");
 
                     HttpResponseMessage response = await client.PostAsync("https://api.imgbb.com/1/upload", formData);
@@ -288,6 +702,20 @@ namespace F.Controllers
                 }
             }
         }
+        private string FormatResult(List<HtmlNode> info)
+        {
+            return $"{info[0]?.InnerText} ({info[1]?.InnerText?.Substring(0, (info[1]?.InnerText?.Length ?? 0) > 8 ? 8 : info[1]?.InnerText?.Length ?? 0)})";
+        }
+        public static bool Verifica(List<HtmlNode> lista)
+            => lista[0] is not null;
+        public static List<HtmlNode> Lista(HtmlDocument site)
+        {
+            List<HtmlNode> info = new();
+            for (int i = 2; i <= 28; i += 2)
+                info.Add(site.DocumentNode.SelectSingleNode($"(//td)[{i}]"));
+            return info;
+        }
+
     }
 
 }

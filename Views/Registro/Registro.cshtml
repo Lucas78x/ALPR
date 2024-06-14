@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "F&F Security - Cadastro";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"]</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/registrocss/styles.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="center">
+            <h1>Register</h1>
+            <form method="POST" action="/Registro/ConfirmarRegistro">
+                <div class="txt_field">
+                    <input type="text" name="Nome" required />
+                    <span></span>
+                    <label>Nome</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="Registro" required />
+                    <span></span>
+                    <label>CPF ou CNPJ</label>
+                </div>
+                <div class="txt_field">
+                    <input type="email" name="Email" required />
+                    <span></span>
+                    <label>Email</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="Senha" required />
+                    <span></span>
+                    <label>Senha</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="ConfirmarSenha" required />
+                    <span></span>
+                    <label>Confirmar Senha</label>
+                </div>
+                <input name="submit" type="submit" value="Confirmar" />
+                <div class="signup_link">s
+                    Have an Account? <a href="loginForm.php">Login Here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

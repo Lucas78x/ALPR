@@ -2,25 +2,7 @@
 @using Newtonsoft.Json
 @model ViewModel
 
-@{
-    ViewData["Title"] = "F&F Security Portal";
-}
 
-@{
-
-
-    int totalCamLPR = 0;
-    int totalPlacasRegistradas = 0;
-    string formattedDate;
-
-    var lastImage = Model.ImagemRecentes
-    .OrderByDescending(imagemRecente => imagemRecente.DateTime)
-    .Select(imagemRecente => imagemRecente.DateTime)
-    .FirstOrDefault();
-    var lastindex = Array.IndexOf(Model.ImagemRecentes.Select(imagemRecente => imagemRecente.DateTime).ToArray(), lastImage);
-    List<string> array_placas = new List<string>();
-    List<string> array_modelos = new List<string>();
-}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +15,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>@ViewData["Title"]</title>
+    <title>FeF Security Portal</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="~/dashboardcss/bootstrap.min.css" rel="stylesheet">
@@ -65,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">F & F Security </a>
+                <a class="navbar-brand" href="index.html">FeF Security </a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -80,13 +62,13 @@
                             <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Configurações</a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <form action="/Home/Logout" method="post" style="display: inline;">
                                 <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer; font: inherit; outline: inherit;">
-                                    <i class="fa fa-fw fa-power-off"></i> Log Out
+                                    <i class="fa fa-fw fa-power-off"></i> Sair
                                 </button>
                                 @Html.AntiForgeryToken()
                             </form>
@@ -99,40 +81,64 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Painel</a>
                     </li>
                     <li>
-                        <form method="post" action="/Home/ALPR">
-                            <button type="submit">
-                                <i class="fa fa-fw fa-table"></i> Submit
-                            </button>
+                        <a href="#" id="chartLink">
+                            <i class="fa fa-solid fa-camera"></i>ﾠALPR
+                        </a>
+                        <form id="chartForm" action="/Cameras/RedirectAlpr" method="post" style="display: none;">
+                            <input type="submit" value="Submit" />
                         </form>
+                        <script>
+                            document.getElementById('chartLink').addEventListener('click', function () {
+                                this.classList.add('active');
+                                document.getElementById('chartForm').submit();
+                            });
+                        </script>
+                    </li>
+                    <li>
+                        <a href="#" id="settingsLink">
+                            <i class="fa fa-fw fa-wrench"></i>Cadastro
+                        </a>
+                        <form id="settingsForm" action="/Home/RedirectSettings" method="post" style="display: none;">
+                            <input type="submit" value="Submit" />
+                        </form>
+                        <script>
+                            document.getElementById('settingsLink').addEventListener('click', function () {
+                                this.classList.add('active');
+                                document.getElementById('settingsForm').submit();
+                            });
+                        </script>
                     </li>
                     <li>
 
+                        <a href="#" id="placasLink">
+                            <i class="fa fa-solid fa-car"></i>ﾠPlacas
+                        </a>
+                        <form id="placasForm" action="/Home/RedirectPlacas" method="post" style="display: none;">
+                            <input type="submit" value="Submit" />
+                        </form>
+                        <script>
+                            document.getElementById('placasLink').addEventListener('click', function () {
+                                this.classList.add('active');
+                                document.getElementById('placasForm').submit();
+                            });
+                        </script>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+                        <a href="#" id="alertasLink">
+                            <i class="fa fa-fw fa-exclamation-triangle"></i> Alertas
+                        </a>
+                        <form id="alertasForm" action="/Home/RedirectAlertas" method="post" style="display: none;">
+                            <input type="submit" value="Submit" />
+                        </form>
+                        <script>
+                            document.getElementById('alertasLink').addEventListener('click', function () {
+                                this.classList.add('active');
+                                document.getElementById('alertasForm').submit();
+                            });
+                        </script>
                     </li>
                 </ul>
             </div>
@@ -147,11 +153,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Dashboard <small>Statistics Overview</small>
+                            Painel
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
+                                <i class="fa fa-dashboard"></i> Painel
                             </li>
                         </ol>
                     </div>
@@ -167,7 +173,7 @@
                                         <i class="fa fa-camera fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">@Model.Cameras.Count</div>
+                                        <div class="huge">@Model.Cameras.Cameras.Count</div>
                                     </div>
                                 </div>
                             </div>
@@ -232,11 +238,18 @@
                                 </div>
                             </div>
                             <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">Ver Detalhes</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
+                                <form id="placasForm" action="/Home/RedirectPlacas" method="post">
+                                    <div class="panel-footer" onclick="submitPlacasForm()" style="cursor: pointer;">
+                                        <span class="pull-left">Ver Detalhes</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
+                                <script>
+                                    function submitPlacasForm() {
+                                        document.getElementById('placasForm').submit();
+                                    }
+                                </script>
                             </a>
                         </div>
                     </div>
@@ -278,19 +291,19 @@
                             <div class="panel-body">
                                 @{
 
-                                    if (lastindex != -1)
+                                    if (Model.LastIndex != -1)
                                     {
-                                        <img src="@Model.ImagemRecentes[lastindex].Url" alt="Imagem" style="width: 100%;">
+                                        <img src="@Model.ImagemRecentes[Model.LastIndex].Url" alt="Imagem" style="width: 100%;">
                                     }
                                 }
                                 <div class="col-md-3">
                                     @{
-                                        if (lastindex != -1)
+                                        if (Model.LastIndex != -1)
                                         {
-                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-camera fa-lg"></i>ﾠ @Model.ImagemRecentes[lastindex].Camera</h5>
-                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-fw fa-car"></i><a href="URL_DE_DESTINO" style="display: inline; text-decoration: none;">ﾠ @Model.ImagemRecentes[lastindex].Placa</a></h5>
-                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-fw fa-cube"></i>ﾠ @Model.ImagemRecentes[lastindex].Modelo</h5>
-                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-calendar fa-lg"></i>ﾠ @($"{Model.ImagemRecentes[lastindex].DateTime:HH:mm}")</h5>
+                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-camera fa-lg"></i>ﾠ @Model.ImagemRecentes[Model.LastIndex].Camera</h5>
+                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-fw fa-car"></i><a href="URL_DE_DESTINO" style="display: inline; text-decoration: none;">ﾠ @Model.ImagemRecentes[Model.LastIndex].Placa</a></h5>
+                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-fw fa-cube"></i>ﾠ @Model.ImagemRecentes[Model.LastIndex].Modelo</h5>
+                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-calendar fa-lg"></i>ﾠ @($"{Model.ImagemRecentes[Model.LastIndex].DateTime:HH:mm}")</h5>
                                         }
                                         else
                                         {
@@ -380,15 +393,15 @@
 
                                                                     if (dataImagem.Date != DateTime.Now.Date)
                                                                     {
-                                                                        formattedDate = $"{timePart} {amPmPart} {dataImagem:MM/dd}";
+                                                                        Model.formattedDate = $"{timePart} {amPmPart} {dataImagem:dd/MM}";
                                                                     }
                                                                     else
                                                                     {
-                                                                        formattedDate = $"{timePart} {amPmPart}";
+                                                                        Model.formattedDate = $"{timePart} {amPmPart}";
                                                                     }
                                                                     #endregion
                                                                 }
-                                                                <p class="card-text text-truncate" style="white-space: nowrap;">@formattedDate</p>
+                                                                <p class="card-text text-truncate" style="white-space: nowrap;">@Model.formattedDate</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -420,9 +433,9 @@
                                     <label for="camera-filter">Filtrar por câmera:</label>
                                     <select id="camera-filter" name="camera">
                                         <option value="">Todas as Câmeras</option>
-                                        @foreach (var camera in Model.Cameras)
+                                        @foreach (var camera in Model.Cameras.Cameras)
                                         {
-                                            <option value="@camera.Camera">@camera.Camera</option>
+                                            <option value="@camera.Name">@camera.Name</option>
                                         }
                                     </select>
                                     <input type="hidden" name="ImagemRecentes" value="@JsonConvert.SerializeObject(Model.ImagemRecentes)" />
@@ -447,6 +460,14 @@
                                     // Verificar se AlertasRecentes está definido antes de usá-lo
                                     if (Model.AlertasRecentes.Count > 0)
                                     {
+                                        if (Model.AlertasRecentes.Count > Model.alertsOld)
+                                        {
+                                            <audio style="display: none" controls autoplay>
+                                                <source src="~/Sounds/alerta.ogg" type="audio/ogg">
+                                                <source src="~/Sounds/alerta.mp3" type="audio/mpeg">
+                                            </audio>
+                                        }
+
                                         // Organizar os dados pela data
                                         var array_datas = Model.AlertasRecentes
                                         .OrderByDescending(alertaRecente => alertaRecente.DateTime)
@@ -500,15 +521,15 @@
 
                                                                 if (dataAlerta.Date != DateTime.Now.Date)
                                                                 {
-                                                                    formattedDate = $"{timePart} {amPmPart} {dataAlerta:MM/dd}";
+                                                                    Model.formattedDate = $"{timePart} {amPmPart} {dataAlerta:MM/dd}";
                                                                 }
                                                                 else
                                                                 {
-                                                                    formattedDate = $"{timePart} {amPmPart}";
+                                                                     Model.formattedDate = $"{timePart} {amPmPart}";
                                                                 }
                                                                 #endregion
                                                             }
-                                                            <p class="card-text text-truncate" style="white-space: nowrap;">@formattedDate</p>
+                                                            <p class="card-text text-truncate" style="white-space: nowrap;">@Model.formattedDate</p>
                                                         </div>
                                                     </div>
                                                 </div>

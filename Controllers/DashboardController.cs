@@ -8,11 +8,9 @@ namespace F.Controllers
 {
     public class DashboardController : Controller
     {
-        private readonly HttpClient _httpClient;
 
         public DashboardController(HttpClient httpClient)
         {
-            _httpClient = httpClient;
         }
 
         [HttpGet]

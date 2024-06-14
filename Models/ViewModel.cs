@@ -1,12 +1,17 @@
-﻿namespace F.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace F.Models
 {
     public class ViewModel
     {
         public List<Imagem> AlertasRecentes { get; set; }
         public List<Imagem> ImagemRecentes { get; set; }
         public List<Imagem> FilterImagem { get; set; }
-        public List<CameraInfo> Cameras { get; set; }
+        public CameraList Cameras { get; set; }
         public string FilterCam { get; set; }
+        public int alertsOld { get; set; }
+        public int LastIndex { get; set; }
+        public string formattedDate { get; set; }
     }
     public class Imagem
     {
@@ -24,21 +29,69 @@
             Modelo = modelo;
             Placa = placa;
             DateTime = dateTime;
-            Url = url;            Camera = camera;
+            Url = url;
+            Camera = camera;
 
         }
     }
     public class PlaceAlertsModel
     {
         public Guid Id { get; set; }
+        public string Name { get; set; }
         public string Placa { get; set; }
         public DateTime CreateDate { get; set; }
 
+        public PlaceAlertsModel(string name, string placa)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            Placa = placa;
+            CreateDate = DateTime.Now;
+        }
     }
+    public class RegisterViewModel
+    {
+        [Required]
+        [Display(Name = "Nome")]
+        public string Nome { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Registro")]
+        public string Registro { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Senha")]
+        public string Senha { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar Senha")]
+        [Compare("Senha", ErrorMessage = "As senhas não coincidem.")]
+        public string ConfirmarSenha { get; set; }
+    }
+
+    public class AddPlaceAlertsModel
+    {
+        public string Placa { get; set; }
+        public string Motivo { get; set; }
+
+    }
+    public class CameraList
+    {
+        public List<CameraInfo> Cameras { get; set; }
+    }
+  
     public class CameraInfo
     {
-        public string Camera { get; set; }
-        public string RTSP { get; set; }
+        public string Name { get; set; }
+        public string IpAddress { get; set; }
         public string Status { get; set; }
     }
 }

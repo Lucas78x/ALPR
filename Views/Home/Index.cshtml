@@ -77,13 +77,16 @@
                             }, 5000); // 5000 milliseconds = 5 seconds
                         </script>
                     }
-                    
+
                     <div class="text-center p-t-136">
-                        <a class="txt2" href="#">
-                            Crie sua Conta
-                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                        </a>
-                    </div>                
+                        @using (Html.BeginForm("RedirectRegistro", "RegistroController", FormMethod.Post))
+                        {
+                            <button class="txt2" type="submit">
+                                Crie sua Conta
+                                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                            </button>
+                        }
+                    </div>
                 </form>
             </div>
         </div>

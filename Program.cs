@@ -15,6 +15,9 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddHttpClient<HomeController>();
 builder.Services.AddHttpClient<DashboardController>();
+builder.Services.AddAuthentication("Bearer");
+builder.Services.AddMemoryCache();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

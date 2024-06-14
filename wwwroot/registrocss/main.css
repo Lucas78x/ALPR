@@ -1,0 +1,284 @@
+
+/* Fontes */
+@font-face {
+    font-family: Poppins-Regular;
+    src: url('../fonts/poppins/Poppins-Regular.ttf');
+}
+
+@font-face {
+    font-family: Poppins-Bold;
+    src: url('../fonts/poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+    font-family: Poppins-Medium;
+    src: url('../fonts/poppins/Poppins-Medium.ttf');
+}
+
+@font-face {
+    font-family: Montserrat-Bold;
+    src: url('../fonts/montserrat/Montserrat-Bold.ttf');
+}
+
+/* Estilos de reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos gerais de texto */
+body, html {
+    height: 100%;
+    font-family: Poppins-Regular, sans-serif;
+}
+
+a {
+    font-family: Poppins-Regular;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+}
+
+    a:focus {
+        outline: none !important;
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: #57b846;
+    }
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+p {
+    font-family: Poppins-Regular;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0;
+}
+
+ul, li {
+    margin: 0;
+    list-style-type: none;
+}
+
+/* Estilos de formulário */
+input, textarea {
+    outline: none;
+    border: none;
+}
+
+    textarea:focus, input:focus {
+        border-color: transparent !important;
+    }
+
+    input::-webkit-input-placeholder {
+        color: #999999;
+    }
+
+    input:-moz-placeholder {
+        color: #999999;
+    }
+
+    input::-moz-placeholder {
+        color: #999999;
+    }
+
+    input:-ms-input-placeholder {
+        color: #999999;
+    }
+
+    textarea::-webkit-input-placeholder {
+        color: #999999;
+    }
+
+    textarea:-moz-placeholder {
+        color: #999999;
+    }
+
+    textarea::-moz-placeholder {
+        color: #999999;
+    }
+
+    textarea:-ms-input-placeholder {
+        color: #999999;
+    }
+
+/* Estilos de botão */
+button {
+    outline: none !important;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Estilos de layout */
+.container-login100 {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-image: url('../images/fundo.png'); /* Substitua o caminho pela URL da sua imagem */
+    background-size: cover; /* Para cobrir todo o contêiner */
+    background-position: center; /* Para centralizar a imagem */
+}
+
+.wrap-login100 {
+    width: 100%; /* Ajustando a largura para ocupar toda a largura do contêiner */
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 50px; /* Reduzindo o preenchimento interno para ajustar a largura do conteúdo */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.login100-pic {
+    width: 30%; /* Reduzindo um pouco a largura da imagem */
+}
+
+.login100-form {
+    width: 60%; /* Aumentando um pouco a largura do formulário */
+}
+
+.input100 {
+    font-family: Poppins-Medium;
+    font-size: 15px;
+    color: #666666;
+    display: block;
+    width: 100%;
+    background: #e6e6e6;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0 25px; /* Ajustando o preenchimento interno */
+    margin-bottom: 20px; /* Ajustando a margem inferior */
+}
+
+/* Estilos de focus */
+.focus-input100 {
+    display: block;
+    position: absolute;
+    border-radius: 25px;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 0px 0px 0px;
+    color: rgba(87,184,70, 0.8);
+}
+
+.input100:focus + .focus-input100 {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+@-webkit-keyframes anim-shadow {
+    to {
+        box-shadow: 0px 0px 70px 25px;
+        opacity: 0;
+    }
+}
+
+@keyframes anim-shadow {
+    to {
+        box-shadow: 0px 0px 70px 25px;
+        opacity: 0;
+    }
+}
+
+.symbol-input100 {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    border-radius: 25px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-left: 35px;
+    pointer-events: none;
+    color: #666666;
+    transition: all 0.4s;
+}
+
+.input100:focus + .focus-input100 + .symbol-input100 {
+    color: #038C65;
+    padding-left: 28px;
+}
+
+/* Estilos de botão de formulário */
+.container-login100-form-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+
+.login100-form-btn {
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    background: #57b846;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.4s;
+}
+
+    .login100-form-btn:hover {
+        background: #333333;
+    }
+
+@media (max-width: 992px) {
+    .wrap-login100 {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .wrap-login100 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login100-pic {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+
+    .login100-form {
+        width: 100%;f.
+    }
+}
+
+@media (max-width: 576px) {
+    .wrap-login100 {
+        padding: 20px;
+    }
+
+    .login100-form-title {
+        min-height: 100px;
+        padding-bottom: 10px;
+    }
+}

@@ -1,0 +1,421 @@
+@{
+    ViewData["Title"] = "F&F Security - Cadastro";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="~/dashboardcss/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="~/dashboardcss/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="~/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a  id="dashboardLink" class="navbar-brand">F & F Security</a>
+                <form id="dashboardForm" action="/Home/Index" method="get" style="display: none;">
+                    <input type="submit" value="Submit" />
+                </form>
+
+                <script>
+                    document.getElementById('dashboardLink').addEventListener('click', function (event) {
+                        event.preventDefault(); // Impede o comportamento padrão do link
+                        this.classList.add('active');
+                        document.getElementById('dashboardForm').submit();
+                    });
+                </script>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>@ViewBag.Email<b class="caret"></b></a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a><i class="fa fa-fw fa-gear"></i>Configurações</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <form action="/Home/Logout" method="post" style="display: inline;">
+                                <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer; font: inherit; outline: inherit;">
+                                    <i class="fa fa-fw fa-power-off"></i> Sair
+                                </button>
+                                @Html.AntiForgeryToken()
+                            </form>
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Painel</a>
+                    </li>
+                    <li>
+                        <a  id="chartLink">
+                            <i class="fa fa-solid fa-camera"></i>ﾠALPR
+                        </a>
+                        <form id="chartForm" action="/Cameras/RedirectAlpr" method="post" style="display: none;">
+                            <input type="submit" value="Submit" />
+                        </form>
+                        <script>
+                            document.getElementById('chartLink').addEventListener('click', function () {
+                                this.classList.add('active');
+                                document.getElementById('chartForm').submit();
+                            });
+                        </script>
+                    </li>
+                    <li class="active">
+                        <a ><i class="fa fa-fw fa-wrench"></i>Cadastro</a>
+                    </li>
+                    <li>
+
+                        <a  id="placasLink">
+                            <i class="fa fa-solid fa-car"></i>ﾠPlacas
+                        </a>
+                        <form id="placasForm" action="/Home/RedirectPlacas" method="post" style="display: none;">
+                            <input type="submit" value="Submit" />
+                        </form>
+                        <script>
+                            document.getElementById('placasLink').addEventListener('click', function () {
+                                this.classList.add('active');
+                                document.getElementById('placasForm').submit();
+                            });
+                        </script>
+                    </li>
+                    <li>
+                        <a  id="alertasLink">
+                            <i class="fa fa-fw fa-exclamation-triangle"></i> Alertas
+                        </a>
+                        <form id="alertasForm" action="/Home/RedirectAlertas" method="post" style="display: none;">
+                            <input type="submit" value="Submit" />
+                        </form>
+                        <script>
+                            document.getElementById('alertasLink').addEventListener('click', function () {
+                                this.classList.add('active');
+                                document.getElementById('alertasForm').submit();
+                            });
+                        </script>
+                    </li>                                   
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            <i class="fa fa-cog"></i> Cadastro
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i> <a>Painel</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-edit"></i> Cadastro
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <style>
+                    .form-section {
+                        margin-bottom: 30px;
+                        padding: 20px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                        background-color: #f9f9f9;
+                    }
+
+                        .form-section hr {
+                            margin-top: 30px;
+                            margin-bottom: 30px;
+                        }
+
+                        .form-section .form-group {
+                            margin-bottom: 15px;
+                        }
+
+                        .form-section h3 {
+                            margin-top: 0;
+                            margin-bottom: 20px;
+                        }
+
+                    .btn-default {
+                        margin-right: 10px;
+                    }
+                </style>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-section">
+                            <h3>Alterar Email</h3>
+                            <form id="form-email" role="form">
+                                <div class="form-group">
+                                    <label><i class="fa fa-envelope"></i> Email Atual</label>
+                                    <p id="current-email" class="form-control-static">Carregando...</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><i class="fa fa-envelope"></i> Novo Email</label>
+                                    <input id="new-email" class="form-control" placeholder="digite o novo email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label><i class="fa fa-lock"></i> Senha Atual</label>
+                                    <input id="password-email" type="password" class="form-control" placeholder="digite a senha atual">
+                                </div>
+
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fa fa-save"></i> Alterar Email
+                                </button>
+                            </form>
+                            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                            {
+                                <div id="errorMessage" class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>@ViewBag.ErrorMessage</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <script>
+                                    setTimeout(function () {
+                                        $('#errorMessage').alert('close');
+                                    }, 5000); // 5000 milliseconds = 5 seconds
+                                </script>
+                            }
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Alterar Nome</h3>
+                            <form id="form-nickname" role="form">
+                                <div class="form-group">
+                                    <label><i class="fa fa-user"></i> Nome Atual</label>
+                                    <p id="current-nickname" class="form-control-static">Carregando...</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><i class="fa fa-user"></i> Novo Nome</label>
+                                    <input id="new-nickname" class="form-control" placeholder="digite o novo Nome">
+                                </div>
+
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fa fa-save"></i> Alterar Nome
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Alterar Senha</h3>
+                            <form id="form-password" role="form">
+                                <div class="form-group">
+                                    <label><i class="fa fa-lock"></i> Senha Atual</label>
+                                    <input id="current-password" type="password" class="form-control" placeholder="digite a senha atual">
+                                </div>
+
+                                <div class="form-group">
+                                    <label><i class="fa fa-lock"></i> Nova Senha</label>
+                                    <input id="new-password" type="password" class="form-control" placeholder="digite a nova senha">
+                                </div>
+
+                                <div class="form-group">
+                                    <label><i class="fa fa-lock"></i> Confirmar Nova Senha</label>
+                                    <input id="confirm-password" type="password" class="form-control" placeholder="confirme a nova senha">
+                                </div>
+
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fa fa-save"></i> Alterar Senha
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    // Função para carregar os dados do usuário
+                    function loadUserData(email, nickname) {
+                        document.getElementById("current-email").textContent = email;
+                        document.getElementById("current-nickname").textContent = nickname;
+                    }
+
+                    // Carregar dados do usuário quando a página é carregada
+                    document.addEventListener("DOMContentLoaded", function () {
+                        loadUserData('@ViewBag.Email', '@ViewBag.Nickname');
+                    });
+
+                    // Funções para envio de formulários
+                    document.getElementById("form-email").addEventListener("submit", async function (event) {
+                        event.preventDefault();
+                        // Lógica para alterar o email
+                        const newEmail = document.getElementById("new-email").value;
+                        const password = document.getElementById("password-email").value;
+                        if (password != '@Html.Raw(ViewBag.Password)') {
+                            alert("Senha incorreta.");
+                            return;
+                        }
+
+                        try {
+                            await ChangeEmail(newEmail);
+                            document.getElementById("current-email").value = "@Html.Raw(ViewBag.Password)'";
+                            document.getElementById("password-email").value = "";
+                            document.getElementById("new-email").value = "";
+
+                            location.reload();
+                        } catch (error) {
+                            console.error("Erro ao alterar o email:", error);
+                            alert("Ocorreu um erro ao alterar o email. Por favor, tente novamente mais tarde.");
+                        }
+                    });
+
+                    document.getElementById("form-nickname").addEventListener("submit", function (event) {
+                        event.preventDefault();
+                        // Lógica para alterar o nome
+                        const newNickname = document.getElementById("new-nickname").value;
+                        // Código para enviar a solicitação de alteração de nome
+                    });
+
+
+                    document.getElementById("form-nickname").addEventListener("submit", function (event) {
+                        event.preventDefault();
+                        // Lógica para alterar o nome
+                        const newNickname = document.getElementById("new-nickname").value;
+                        // Código para enviar a solicitação de alteração de nome
+                    });
+
+                    document.getElementById("form-password").addEventListener("submit", function (event) {
+                        event.preventDefault();
+                        // Lógica para alterar a senha
+                        const currentPassword = document.getElementById("current-password").value;
+                        if (currentPassword != '@Html.Raw(ViewBag.Password)') {
+                            alert("Senha incorreta.");
+                            return;
+                        }
+                        const newPassword = document.getElementById("new-password").value;
+                        const confirmPassword = document.getElementById("confirm-password").value;
+                        if (newPassword !== confirmPassword) {
+                            alert("As senhas não coincidem.");
+                            return;
+                        }
+                        if (newPassword == '') {
+
+                            alert("senha inválida");
+                            return;
+                        }
+                        else if (newPassword.length < 8) {
+                            alert("Senha deve ter pelo menos 8 caracteres");
+                            return;
+                        }
+
+                        ChangePassword(newPassword)
+                        location.reload();
+
+                    });
+
+                    async function ChangeEmail(email) {
+                        const response = await fetch(`/api/ChangeEmail/${email}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: email
+                            })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                    }
+                    async function ChangePassword(password) {
+                        const response = await fetch(`/api/ChangePassword/${password}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                password: password
+                            })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                    }
+                </script>
+
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="~/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/js/bootstrap.min.js"></script>
+
+    <!-- Custom JavaScript to load user data -->
+    <script>
+        //
+        // Função para carregar os dados do usuário
+        function loadUserData(email, nickname) {
+            document.getElementById("current-email").textContent = email;
+            document.getElementById("current-nickname").textContent = nickname;
+        }
+
+        // Carregar dados do usuário quando a página é carregada
+        document.addEventListener("DOMContentLoaded", function () {
+            loadUserData('@ViewBag.Email', '');
+        });
+    </script>
+
+</body>
+
+</html>
