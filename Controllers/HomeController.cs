@@ -86,6 +86,7 @@ namespace F.Controllers
             CameraList cameraList = new();
 
             string filePath = Path.Combine(_webHostEnvironment.ContentRootPath, _configuration["Authentication:ApiPath"]);
+            Console.WriteLine(filePath);
 
             if (System.IO.File.Exists(filePath))
             {
