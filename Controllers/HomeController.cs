@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using System.Reflection;
+using System.Collections.Concurrent;
 
 namespace F.Controllers
 {
@@ -42,9 +43,10 @@ namespace F.Controllers
             return View("index");
         }
 
+      
         [HttpGet]
         public async Task<IActionResult> Dashboard()
-        {      
+        {
             var email = HttpContext.Session.GetString("Email");
             if (string.IsNullOrEmpty(email))
             {
@@ -54,8 +56,8 @@ namespace F.Controllers
             ViewBag.Email = email;
 
             var places = new List<PlaceAlertsModel>();
-            List<Imagem> imagensDoMes = new List<Imagem>();
-            List<Imagem> Alertarecentes = new List<Imagem>();
+            ConcurrentBag<Imagem> imagensDoMes = new ConcurrentBag<Imagem>();
+            ConcurrentBag<Imagem> alertasRecentes = new ConcurrentBag<Imagem>();
             var viewModel = new ViewModel();
 
             var handler = new HttpClientHandler
@@ -68,10 +70,8 @@ namespace F.Controllers
 
             try
             {
-
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _configuration["Authentication:TokenKey"]);
-
-                var response = await client.GetAsync($"https://localhost:7788/api/v1/account/alertsinfo?AccountId={id}");
+                var response = await client.GetAsync($"https://172.30.2.91:7788/api/v1/account/alertsinfo?AccountId={id}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -80,108 +80,68 @@ namespace F.Controllers
             }
             catch
             {
-
+                // Handle exceptions (log, rethrow, etc.)
             }
 
             CameraList cameraList = new();
 
-            string filePath = Path.Combine(_webHostEnvironment.ContentRootPath,"wwwroot",_configuration["Authentication:ApiPath"]);
-            Console.WriteLine(filePath);
-
+            string filePath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", _configuration["Authentication:ApiPath"]);
             if (System.IO.File.Exists(filePath))
             {
-                // L� o conte�do do arquivo
-                string json = System.IO.File.ReadAllText(filePath);
-                // Desserializa o JSON em uma lista de objetos CameraInfo
+                string json = await System.IO.File.ReadAllTextAsync(filePath);
                 cameraList = Newtonsoft.Json.JsonConvert.DeserializeObject<CameraList>(json);
 
-                // Itera sobre a lista de objetos CameraInfo para obter os nomes das c�meras
-                foreach (var cameraInfo in cameraList.Cameras)
+                int mesAtual = DateTime.Now.Month;
+                int anoAtual = DateTime.Now.Year;
+                DateTime today = DateTime.Now.Date;
+
+                var cameraTasks = cameraList.Cameras.Select(async cameraInfo =>
                 {
-                    string folderName = $"{DateTime.Now.ToString("MM/yyyy").Replace("/", string.Empty)}";
-
-
+                    string folderName = $"{DateTime.Now:MM/yyyy}".Replace("/", string.Empty);
                     string pastaImagens = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Authentication:ImgPath"], cameraInfo.Name, folderName);
 
-                    if (!System.IO.Directory.Exists(pastaImagens))
-                        System.IO.Directory.CreateDirectory(pastaImagens);
+                    if (!Directory.Exists(pastaImagens))
+                        Directory.CreateDirectory(pastaImagens);
 
-
-                    // Obter o m�s e o ano atual
-                    int mesAtual = DateTime.Now.Month;
-                    int anoAtual = DateTime.Now.Year;
-
-                    // Listar todos os arquivos na pasta de imagens
                     string[] arquivos = Directory.GetFiles(pastaImagens);
 
-                    // Filtrar os arquivos pelo m�s e ano atual
-                    foreach (string arquivo in arquivos)
+                    var arquivoTasks = arquivos.Select(async arquivo =>
                     {
                         DateTime dataCriacao = System.IO.File.GetCreationTime(arquivo);
 
                         if (dataCriacao.Month == mesAtual && dataCriacao.Year == anoAtual)
                         {
-                            // Extrair informa��es do nome do arquivo (exemplo: Modelo_Placa_2024-05-25.jpg)
                             string[] partesNomeArquivo = Path.GetFileNameWithoutExtension(arquivo).Split('_');
                             string placa = partesNomeArquivo[1];
                             string modelo = GetPlaca(placa);
-                            DateTime dataHora = System.IO.File.GetCreationTime(arquivo);
-                            string url = GetUrlByApi(arquivo).Result;
+                            DateTime dataHora = dataCriacao;
+                            string url = await GetUrlByApi(arquivo);
 
-                            // Criar objeto Imagem e adicionar � lista
                             Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
                             imagensDoMes.Add(imagem);
 
                             var alerta = places?.FirstOrDefault(x => x.Placa == placa);
-                            if (alerta != null)
+                            if (alerta != null && imagem.DateTime.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
                             {
-                                if (Alertarecentes.FirstOrDefault(x => x.Placa == placa && x.DateTime == dataHora) == null)
-                                {
-                                    if (imagem.DateTime.Date == DateTime.Now.Date)
-                                    {
-                                        Alertarecentes.Add(imagem);
-                                    }
-                                }
+                                alertasRecentes.Add(imagem);
                             }
                         }
-                    }
-                }
+                    });
+
+                    await Task.WhenAll(arquivoTasks);
+                });
+
+                await Task.WhenAll(cameraTasks);
             }
 
-            viewModel.AlertasRecentes = Alertarecentes;
-            viewModel.ImagemRecentes = imagensDoMes;
+            viewModel.AlertasRecentes = alertasRecentes.ToList();
+            viewModel.ImagemRecentes = imagensDoMes.ToList();
             viewModel.Cameras = cameraList;
 
-            GetOldAlertsValue(Alertarecentes, ref viewModel, id);
-
-            viewModel.AlertasRecentes = Alertarecentes;
-            viewModel.ImagemRecentes = imagensDoMes;
-            viewModel.Cameras = cameraList;
-
-            GetOldAlertsValue(Alertarecentes, ref viewModel, id);
-
-            var imagemRecentes = viewModel?.ImagemRecentes;
-            DateTime? lastImage = null;
-            int lastindex = -1;
-
-            if (imagemRecentes != null && imagemRecentes.Any())
-            {
-                lastImage = imagemRecentes
-                    .OrderByDescending(imagemRecente => imagemRecente.DateTime)
-                    .Select(imagemRecente => imagemRecente.DateTime)
-                    .FirstOrDefault();
-
-                if (lastImage != null)
-                {
-                    lastindex = Array.IndexOf(imagemRecentes.Select(imagemRecente => imagemRecente.DateTime).ToArray(), lastImage.Value);
-                }
-            }
-
-            viewModel.LastIndex = lastindex;
+            GetOldAlertsValue(alertasRecentes.ToList(), ref viewModel, id);
 
             return View("Dashboard", viewModel);
         }
-
         private static void GetOldAlertsValue(List<Imagem> Alertarecentes, ref ViewModel viewModel, int id)
         {
             string newfilePath = $"{id}.txt";
