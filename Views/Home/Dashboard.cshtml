@@ -173,7 +173,16 @@
                                         <i class="fa fa-camera fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">@Model.Cameras.Cameras.Count</div>
+                                        @{
+                                            if(Model.Cameras.Cameras != null)
+                                            {
+                                            <div class="huge">@Model.Cameras.Cameras.Count</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="huge">0</div>
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -525,7 +534,7 @@
                                                                 }
                                                                 else
                                                                 {
-                                                                     Model.formattedDate = $"{timePart} {amPmPart}";
+                                                                    Model.formattedDate = $"{timePart} {amPmPart}";
                                                                 }
                                                                 #endregion
                                                             }
