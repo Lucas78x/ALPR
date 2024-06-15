@@ -135,12 +135,36 @@ namespace F.Controllers
                 viewModel.ImagemRecentes = imagensDoMes.ToList();
                 viewModel.Cameras = cameraList;
 
+                SetLastImage(viewModel);
+
                 return View("Dashboard", viewModel);
             }
             catch
             {
                 return View("Dashboard", viewModel);
             }
+        }
+
+        private static void SetLastImage(ViewModel? viewModel)
+        {
+            var imagemRecentes = viewModel?.ImagemRecentes;
+            DateTime? lastImage = null;
+            int lastindex = -1;
+
+            if (imagemRecentes != null && imagemRecentes.Any())
+            {
+                lastImage = imagemRecentes
+                    .OrderByDescending(imagemRecente => imagemRecente.DateTime)
+                    .Select(imagemRecente => imagemRecente.DateTime)
+                    .FirstOrDefault();
+
+                if (lastImage != null)
+                {
+                    lastindex = Array.IndexOf(imagemRecentes.Select(imagemRecente => imagemRecente.DateTime).ToArray(), lastImage.Value);
+                }
+            }
+
+            viewModel.LastIndex = lastindex;
         }
 
         public IActionResult FilterByCamera(string camera, string ImagemRecentes)
