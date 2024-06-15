@@ -112,9 +112,9 @@ namespace F.Controllers
                         {
                             string[] partesNomeArquivo = Path.GetFileNameWithoutExtension(arquivo).Split('_');
                             string placa = partesNomeArquivo[1];
-                            string modelo = GetPlaca(placa);
+                            string modelo = placa;
                             DateTime dataHora = dataCriacao;
-                            string url = await GetUrlByApi(arquivo);
+                            string url = string.Empty;
 
                             Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
                             imagensDoMes.Add(imagem);
