@@ -43,7 +43,7 @@ namespace F.Controllers
             return View("index");
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
             var email = HttpContext.Session.GetString("Email");
