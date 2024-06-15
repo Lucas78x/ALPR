@@ -44,7 +44,6 @@ namespace F.Controllers
         }
 
 
-        [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
             var email = HttpContext.Session.GetString("Email");
@@ -142,6 +141,7 @@ namespace F.Controllers
 
             return View("Dashboard", viewModel);
         }
+
 
         private static void GetOldAlertsValue(List<Imagem> Alertarecentes, ref ViewModel viewModel, int id)
         {
