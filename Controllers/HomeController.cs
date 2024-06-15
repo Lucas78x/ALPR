@@ -76,106 +76,70 @@ namespace F.Controllers
                 {
                     places = await response.Content.ReadFromJsonAsync<List<PlaceAlertsModel>>();
                 }
+
+
+                CameraList cameraList = new();
+
+                string filePath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", _configuration["Authentication:ApiPath"]);
+                if (System.IO.File.Exists(filePath))
+                {
+                    string json = await System.IO.File.ReadAllTextAsync(filePath);
+                    cameraList = Newtonsoft.Json.JsonConvert.DeserializeObject<CameraList>(json);
+
+                    int mesAtual = DateTime.Now.Month;
+                    int anoAtual = DateTime.Now.Year;
+                    DateTime today = DateTime.Now.Date;
+
+                    var cameraTasks = cameraList.Cameras.Select(async cameraInfo =>
+                    {
+                        string folderName = $"{DateTime.Now:MM/yyyy}".Replace("/", string.Empty);
+                        string pastaImagens = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Authentication:ImgPath"], cameraInfo.Name, folderName);
+
+                        if (!Directory.Exists(pastaImagens))
+                            Directory.CreateDirectory(pastaImagens);
+
+                        var arquivos = Directory.GetFiles(pastaImagens);
+
+                        var arquivoTasks = arquivos.Select(async arquivo =>
+                        {
+                            DateTime dataCriacao = System.IO.File.GetCreationTime(arquivo);
+
+                            if (dataCriacao.Month == mesAtual && dataCriacao.Year == anoAtual)
+                            {
+                                string[] partesNomeArquivo = Path.GetFileNameWithoutExtension(arquivo).Split('_');
+                                string placa = partesNomeArquivo[1];
+                                string modelo = GetPlaca(placa);
+                                DateTime dataHora = dataCriacao;
+                                string url = await GetUrlByApi(arquivo);
+
+                                Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
+                                imagensDoMes.Add(imagem);
+
+                                var alerta = places?.FirstOrDefault(x => x.Placa == placa);
+                                if (alerta != null && dataHora.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
+                                {
+                                    alertasRecentes.Add(imagem);
+                                }
+                            }
+                        });
+
+                        await Task.WhenAll(arquivoTasks);
+                    });
+
+                    await Task.WhenAll(cameraTasks);
+                }
+
+                viewModel.AlertasRecentes = alertasRecentes.ToList();
+                viewModel.ImagemRecentes = imagensDoMes.ToList();
+                viewModel.Cameras = cameraList;
+
+                return View("Dashboard", viewModel);
             }
             catch
             {
-                // Handle exceptions (log, rethrow, etc.)
+                return View("Dashboard", viewModel);
             }
 
-            CameraList cameraList = new();
-
-            string filePath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", _configuration["Authentication:ApiPath"]);
-            if (System.IO.File.Exists(filePath))
-            {
-                string json = await System.IO.File.ReadAllTextAsync(filePath);
-                cameraList = Newtonsoft.Json.JsonConvert.DeserializeObject<CameraList>(json);
-
-                int mesAtual = DateTime.Now.Month;
-                int anoAtual = DateTime.Now.Year;
-                DateTime today = DateTime.Now.Date;
-
-                var cameraTasks = cameraList.Cameras.Select(async cameraInfo =>
-                {
-                    string folderName = $"{DateTime.Now:MM/yyyy}".Replace("/", string.Empty);
-                    string pastaImagens = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Authentication:ImgPath"], cameraInfo.Name, folderName);
-
-                    if (!Directory.Exists(pastaImagens))
-                        Directory.CreateDirectory(pastaImagens);
-
-                    var arquivos = Directory.GetFiles(pastaImagens);
-
-                    var arquivoTasks = arquivos.Select(async arquivo =>
-                    {
-                        DateTime dataCriacao = System.IO.File.GetCreationTime(arquivo);
-
-                        if (dataCriacao.Month == mesAtual && dataCriacao.Year == anoAtual)
-                        {
-                            string[] partesNomeArquivo = Path.GetFileNameWithoutExtension(arquivo).Split('_');
-                            string placa = partesNomeArquivo[1];
-                            string modelo = placa;
-                            DateTime dataHora = dataCriacao;
-                            string url = string.Empty;
-
-                            Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
-                            imagensDoMes.Add(imagem);
-
-                            var alerta = places?.FirstOrDefault(x => x.Placa == placa);
-                            if (alerta != null && dataHora.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
-                            {
-                                alertasRecentes.Add(imagem);
-                            }
-                        }
-                    });
-
-                    await Task.WhenAll(arquivoTasks);
-                });
-
-                await Task.WhenAll(cameraTasks);
-            }
-
-            viewModel.AlertasRecentes = alertasRecentes.ToList();
-            viewModel.ImagemRecentes = imagensDoMes.ToList();
-            viewModel.Cameras = cameraList;
-
-            GetOldAlertsValue(alertasRecentes.ToList(), ref viewModel, id);
-
-            return View("Dashboard", viewModel);
-        }
-
-
-        private static void GetOldAlertsValue(List<Imagem> Alertarecentes, ref ViewModel viewModel, int id)
-        {
-            string newfilePath = $"{id}.txt";
-
-            int novoValor = Alertarecentes.Count; // Substitua este valor pelo valor que voc� deseja gravar no arquivo
-
-            if (System.IO.File.Exists(newfilePath))
-            {
-                // Se o arquivo existe, l� o conte�do atual
-                string conteudoAtual = System.IO.File.ReadAllText(newfilePath);
-                int valorAtual;
-
-                // Tenta converter o conte�do atual para um inteiro
-                if (int.TryParse(conteudoAtual, out valorAtual))
-                {
-                    viewModel.alertsOld = valorAtual;
-                    // Atualiza o valor existente com o novo valor
-                    valorAtual = novoValor;
-                }
-                else
-                {
-                    // Se n�o for poss�vel converter, apenas substitui com o novo valor
-                    valorAtual = novoValor;
-                }
-
-                // Escreve o novo valor no arquivo
-                System.IO.File.WriteAllText(newfilePath, valorAtual.ToString());
-            }
-            else
-            {
-                // Se o arquivo n�o existe, cria o arquivo e escreve o novo valor
-                System.IO.File.WriteAllText(newfilePath, novoValor.ToString());
-            }
         }
 
         public IActionResult FilterByCamera(string camera, string ImagemRecentes)
