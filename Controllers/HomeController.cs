@@ -70,13 +70,12 @@ namespace F.Controllers
             try
             {
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _configuration["Authentication:TokenKey"]);
-                var response = await client.GetAsync($"https://172.30.2.91:7788/api/v1/account/alertsinfo?AccountId={id}");
+                var response = await client.GetAsync($"https://localhost:7788/api/v1/account/alertsinfo?AccountId={id}");
 
                 if (response.IsSuccessStatusCode)
                 {
                     places = await response.Content.ReadFromJsonAsync<List<PlaceAlertsModel>>();
                 }
-
 
                 CameraList cameraList = new();
 
@@ -90,40 +89,43 @@ namespace F.Controllers
                     int anoAtual = DateTime.Now.Year;
                     DateTime today = DateTime.Now.Date;
 
-                    var cameraTasks = cameraList.Cameras.Select(async cameraInfo =>
+                    var cameraTasks = cameraList.Cameras.Select(cameraInfo =>
                     {
-                        string folderName = $"{DateTime.Now:MM/yyyy}".Replace("/", string.Empty);
-                        string pastaImagens = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Authentication:ImgPath"], cameraInfo.Name, folderName);
-
-                        if (!Directory.Exists(pastaImagens))
-                            Directory.CreateDirectory(pastaImagens);
-
-                        var arquivos = Directory.GetFiles(pastaImagens);
-
-                        var arquivoTasks = arquivos.Select(async arquivo =>
+                        return Task.Run(async () =>
                         {
-                            DateTime dataCriacao = System.IO.File.GetCreationTime(arquivo);
+                            string folderName = $"{DateTime.Now:MM/yyyy}".Replace("/", string.Empty);
+                            string pastaImagens = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Authentication:ImgPath"], cameraInfo.Name, folderName);
 
-                            if (dataCriacao.Month == mesAtual && dataCriacao.Year == anoAtual)
+                            if (!Directory.Exists(pastaImagens))
+                                Directory.CreateDirectory(pastaImagens);
+
+                            var arquivos = Directory.GetFiles(pastaImagens);
+
+                            var arquivoTasks = arquivos.Select(async arquivo =>
                             {
-                                string[] partesNomeArquivo = Path.GetFileNameWithoutExtension(arquivo).Split('_');
-                                string placa = partesNomeArquivo[1];
-                                string modelo = GetPlaca(placa);
-                                DateTime dataHora = dataCriacao;
-                                string url = await GetUrlByApi(arquivo);
+                                DateTime dataCriacao = System.IO.File.GetCreationTime(arquivo);
 
-                                Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
-                                imagensDoMes.Add(imagem);
-
-                                var alerta = places?.FirstOrDefault(x => x.Placa == placa);
-                                if (alerta != null && dataHora.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
+                                if (dataCriacao.Month == mesAtual && dataCriacao.Year == anoAtual)
                                 {
-                                    alertasRecentes.Add(imagem);
-                                }
-                            }
-                        });
+                                    string[] partesNomeArquivo = Path.GetFileNameWithoutExtension(arquivo).Split('_');
+                                    string placa = partesNomeArquivo[1];
+                                    string modelo = GetPlaca(placa);
+                                    DateTime dataHora = dataCriacao;
+                                    string url = await GetUrlByApi(arquivo);
 
-                        await Task.WhenAll(arquivoTasks);
+                                    Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
+                                    imagensDoMes.Add(imagem);
+
+                                    var alerta = places?.FirstOrDefault(x => x.Placa == placa);
+                                    if (alerta != null && dataHora.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
+                                    {
+                                        alertasRecentes.Add(imagem);
+                                    }
+                                }
+                            });
+
+                            await Task.WhenAll(arquivoTasks);
+                        });
                     });
 
                     await Task.WhenAll(cameraTasks);
@@ -139,7 +141,6 @@ namespace F.Controllers
             {
                 return View("Dashboard", viewModel);
             }
-
         }
 
         public IActionResult FilterByCamera(string camera, string ImagemRecentes)

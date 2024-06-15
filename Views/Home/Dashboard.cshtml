@@ -174,9 +174,9 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         @{
-                                            if(Model.Cameras.Cameras != null)
+                                            if (Model.Cameras?.Cameras != null)
                                             {
-                                            <div class="huge">@Model.Cameras.Cameras.Count</div>
+                                                <div class="huge">@Model.Cameras.Cameras.Count</div>
                                             }
                                             else
                                             {
@@ -241,7 +241,16 @@
                                         <i class="fa fa-solid fa-car fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">@Model.ImagemRecentes.Count</div>
+                                        @{
+                                            if (Model.ImagemRecentes != null)
+                                            {
+                                                <div class="huge">@Model.ImagemRecentes?.Count</div>
+                                            }
+                                            elses
+                                            {
+                                                <div class="huge">0</div>
+                                            }
+                                        }
                                         <div>Placas esta semana</div>
                                     </div>
                                 </div>
@@ -441,7 +450,7 @@
                                 <div class="text-right">
                                     <label for="camera-filter">Filtrar por câmera:</label>
                                     <select id="camera-filter" name="camera">
-                                        <option value="">Todas as Câmeras</option>                          
+                                        <option value="">Todas as Câmeras</option>
                                     </select>
                                     <input type="hidden" name="ImagemRecentes" value="@JsonConvert.SerializeObject(Model.ImagemRecentes)" />
                                     <button type="submit">Filtrar</button>
@@ -465,13 +474,12 @@
                                     // Verificar se AlertasRecentes está definido antes de usá-lo
                                     if (Model.AlertasRecentes.Count > 0)
                                     {
-                                        if (Model.AlertasRecentes.Count > Model.alertsOld)
-                                        {
-                                            <audio style="display: none" controls autoplay>
-                                                <source src="~/Sounds/alerta.ogg" type="audio/ogg">
-                                                <source src="~/Sounds/alerta.mp3" type="audio/mpeg">
-                                            </audio>
-                                        }
+
+                                        <audio style="display: none" controls autoplay>
+                                            <source src="~/Sounds/alerta.ogg" type="audio/ogg">
+                                            <source src="~/Sounds/alerta.mp3" type="audio/mpeg">
+                                        </audio>
+
 
                                         // Organizar os dados pela data
                                         var array_datas = Model.AlertasRecentes
