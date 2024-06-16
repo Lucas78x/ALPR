@@ -634,16 +634,12 @@ namespace F.Controllers
                 }
             }
         }
-        public string GetUrlByApi(string url, Cloudinary cloudinary)
+        public string GetUrlByApi(string filePath, Cloudinary cloudinary)
         {
-
-
-
+            // Extrair o nome do arquivo a partir do caminho completo do arquivo
             string imageName = string.Empty;
-
             string regex = @"([^\\]+)$";
-
-            Match match = Regex.Match(url, regex);
+            Match match = Regex.Match(filePath, regex);
 
             if (match.Success)
             {
@@ -651,30 +647,32 @@ namespace F.Controllers
             }
             else
             {
-                return imageName;
+                return string.Empty;
             }
 
+            // Tentar obter o recurso existente pelo nome da imagem
             var getParams = new GetResourceParams(imageName);
             var getResourceResult = cloudinary.GetResource(getParams);
 
-            if (getResourceResult.Bytes > 0)
+            if (getResourceResult != null && getResourceResult.Bytes > 0)
             {
-                // A imagem existe, você pode retornar o URL dela
+                // Se a imagem existe, retornar o URL seguro dela
                 return getResourceResult.SecureUrl;
             }
             else
             {
-
+                // Caso contrário, fazer upload da imagem
                 var uploadParams = new ImageUploadParams()
                 {
-                    File = new FileDescription(url),
+                    File = new FileDescription(filePath),
                     Transformation = new Transformation().Width(350).Height(350).Crop("scale")
                 };
 
                 var uploadResult = cloudinary.Upload(uploadParams);
-                return uploadResult?.Uri?.AbsoluteUri;
+                return uploadResult?.SecureUrl.AbsoluteUri;
             }
         }
+
         public string GetUrlByApi(string url)
         {
             //Cloudinary cloudinary = new Cloudinary(Environment.GetEnvironmentVariable($"cloudinary://<{_configuration["Authentication:ApiKey"]}>:<{_configuration["Authentication:ApiSecret"]}>@duhbl9t9m"));
