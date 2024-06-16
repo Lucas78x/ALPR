@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using System.Reflection;
 using System.Collections.Concurrent;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace F.Controllers
 {
@@ -46,11 +48,17 @@ namespace F.Controllers
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
+
             var email = HttpContext.Session.GetString("Email");
             if (string.IsNullOrEmpty(email))
             {
                 return RedirectToAction("Index");
             }
+
+
+            var cloudinaryUrl = $"cloudinary://{_configuration["Authentication:ApiKey"]}:{_configuration["Authentication:ApiSecret"]}@{_configuration["Authentication:ApiName"]}";
+            Cloudinary cloudinary = new Cloudinary(cloudinaryUrl);
+            cloudinary.Api.Secure = true;
 
             ViewBag.Email = email;
 
@@ -80,6 +88,7 @@ namespace F.Controllers
                 CameraList cameraList = new();
 
                 string filePath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", _configuration["Authentication:ApiPath"]);
+             
                 if (System.IO.File.Exists(filePath))
                 {
                     string json = await System.IO.File.ReadAllTextAsync(filePath);
@@ -111,7 +120,7 @@ namespace F.Controllers
                                     string placa = partesNomeArquivo[1];
                                     string modelo = GetPlaca(placa);
                                     DateTime dataHora = dataCriacao;
-                                    string url = await GetUrlByApi(arquivo);
+                                    string url = GetUrlByApi(arquivo, cloudinary);
 
                                     Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
                                     imagensDoMes.Add(imagem);
@@ -404,7 +413,7 @@ namespace F.Controllers
 
                             if (dataHora >= startDateTime && dataHora <= endDateTime && placa == plate)
                             {
-                                string url = await GetUrlByApi(arquivo);
+                                string url = GetUrlByApi(arquivo);
 
                                 Imagem imagem = new Imagem(GetPlaca(placa), placa, dataHora, url, cameraInfo.Name);
                                 imagens.Add(imagem);
@@ -625,33 +634,79 @@ namespace F.Controllers
                 }
             }
         }
-        public async Task<string> GetUrlByApi(string url)
+        public string GetUrlByApi(string url, Cloudinary cloudinary)
         {
-            string imagePath = url;
 
-            byte[] imageData = System.IO.File.ReadAllBytes(imagePath);
 
-            using (var client = new HttpClient())
+
+            string imageName = string.Empty;
+
+            string regex = @"([^\\]+)$";
+
+            Match match = Regex.Match(url, regex);
+
+            if (match.Success)
             {
-                using (var formData = new MultipartFormDataContent())
-                {
-                    formData.Add(new StringContent(_configuration["Authentication:ApiKey"]), "key");
-                    formData.Add(new ByteArrayContent(imageData, 0, imageData.Length), "image", "imagem.jpg");
-
-                    HttpResponseMessage response = await client.PostAsync("https://api.imgbb.com/1/upload", formData);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-                        JObject jsonResponse = JObject.Parse(apiResponse);
-                        return jsonResponse["data"]["url"].ToString();
-                    }
-                    else
-                    {
-                        return string.Empty;
-                    }
-                }
+                imageName = match.Groups[1].Value;
             }
+            else
+            {
+                return imageName;
+            }
+
+            var getParams = new GetResourceParams(imageName);
+            var getResourceResult = cloudinary.GetResource(getParams);
+
+            if (getResourceResult.Bytes > 0)
+            {
+                // A imagem existe, você pode retornar o URL dela
+                return getResourceResult.SecureUrl;
+            }
+            else
+            {
+
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(url),
+                    Transformation = new Transformation().Width(350).Height(350).Crop("scale")
+                };
+
+                var uploadResult = cloudinary.Upload(uploadParams);
+                return uploadResult?.Uri?.AbsoluteUri;
+            }
+        }
+        public string GetUrlByApi(string url)
+        {
+            //Cloudinary cloudinary = new Cloudinary(Environment.GetEnvironmentVariable($"cloudinary://<{_configuration["Authentication:ApiKey"]}>:<{_configuration["Authentication:ApiSecret"]}>@duhbl9t9m"));
+            //cloudinary.Api.Secure = true;
+            //string imageName = url;
+
+            //// Verificar se a imagem existe
+            //var searchResult = cloudinary.Search().Fields(imageName);
+
+            //// Caso a imagem exista
+            //if (searchResult != null)
+            //{
+            //    // Obter a URL da imagem
+            //    string existingUrl = searchResult.ToUrl();
+            //    return existingUrl;
+            //}
+            //else
+            //{
+            //    // Upload da imagem
+            //    using (var stream = System.IO.File.OpenRead(url))
+            //    {
+            //        var uploadParams = new ImageUploadParams()
+            //        {
+            //            File = new FileDescription(url),
+            //            Transformation = new Transformation().Width(100).Height(100).Crop("scale")
+            //        };
+
+            //        var uploadResult = cloudinary.Upload(uploadParams);
+            //        return uploadResult?.Uri?.AbsoluteUri;
+            //    }
+            //}
+            return string.Empty;
         }
         private string FormatResult(List<HtmlNode> info)
         {
