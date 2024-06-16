@@ -7,8 +7,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using System.Reflection;
 using System.Collections.Concurrent;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace F.Controllers
 {
@@ -23,13 +22,15 @@ namespace F.Controllers
         private readonly HttpClient _httpClient;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IConfiguration _configuration;
+        private readonly IMemoryCache _cache;
         private static readonly Dictionary<string, string> Cache = new();
 
-        public HomeController(HttpClient httpClient, IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
+        public HomeController(HttpClient httpClient, IWebHostEnvironment webHostEnvironment, IConfiguration configuration, IMemoryCache cache)
         {
             _httpClient = httpClient;
             _webHostEnvironment = webHostEnvironment;
             _configuration = configuration;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -48,17 +49,11 @@ namespace F.Controllers
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
-
             var email = HttpContext.Session.GetString("Email");
             if (string.IsNullOrEmpty(email))
             {
                 return RedirectToAction("Index");
             }
-
-
-            var cloudinaryUrl = $"cloudinary://{_configuration["Authentication:ApiKey"]}:{_configuration["Authentication:ApiSecret"]}@{_configuration["Authentication:ApiName"]}";
-            Cloudinary cloudinary = new Cloudinary(cloudinaryUrl);
-            cloudinary.Api.Secure = true;
 
             ViewBag.Email = email;
 
@@ -88,7 +83,6 @@ namespace F.Controllers
                 CameraList cameraList = new();
 
                 string filePath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", _configuration["Authentication:ApiPath"]);
-
                 if (System.IO.File.Exists(filePath))
                 {
                     string json = await System.IO.File.ReadAllTextAsync(filePath);
@@ -120,7 +114,7 @@ namespace F.Controllers
                                     string placa = partesNomeArquivo[1];
                                     string modelo = GetPlaca(placa);
                                     DateTime dataHora = dataCriacao;
-                                    string url = GetUrlByApi(arquivo, cloudinary);
+                                    string url = await GetUrlByApi(arquivo);
 
                                     Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
                                     imagensDoMes.Add(imagem);
@@ -413,7 +407,7 @@ namespace F.Controllers
 
                             if (dataHora >= startDateTime && dataHora <= endDateTime && placa == plate)
                             {
-                                string url = GetUrlByApi(arquivo);
+                                string url = await GetUrlByApi(arquivo);
 
                                 Imagem imagem = new Imagem(GetPlaca(placa), placa, dataHora, url, cameraInfo.Name);
                                 imagens.Add(imagem);
@@ -634,61 +628,43 @@ namespace F.Controllers
                 }
             }
         }
-        public string GetUrlByApi(string filePath, Cloudinary cloudinary)
+        public async Task<string> GetUrlByApi(string url)
         {
-
-            // Se a imagem não existe, fazer o upload da imagem
-            var uploadParams = new ImageUploadParams()
+            // Check if the URL is already in the cache
+            if (_cache.TryGetValue(url, out string cachedUrl))
             {
-                File = new FileDescription(filePath),
-                Transformation = new Transformation().Width(350).Height(350).Crop("scale")
-            };
-
-            try
-            {
-                var uploadResult = cloudinary.Upload(uploadParams);
-                return uploadResult?.SecureUrl.AbsoluteUri; // Retornar a URL segura do upload
+                return cachedUrl;
             }
-            catch (Exception ex)
+
+            string imagePath = url;
+            byte[] imageData = System.IO.File.ReadAllBytes(imagePath);
+
+            using (var client = new HttpClient())
             {
+                using (var formData = new MultipartFormDataContent())
+                {
+                    formData.Add(new StringContent(_configuration["Authentication:ApiKey"]), "key");
+                    formData.Add(new ByteArrayContent(imageData, 0, imageData.Length), "image", "imagem.jpg");
 
-                return string.Empty;
+                    HttpResponseMessage response = await client.PostAsync("https://api.imgbb.com/1/upload", formData);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        JObject jsonResponse = JObject.Parse(apiResponse);
+                        string uploadedUrl = jsonResponse["data"]["url"].ToString();
+
+                        // Store the URL in the cache
+                        _cache.Set(url, uploadedUrl, TimeSpan.FromMinutes(60)); // Cache for 60 minutes
+
+                        return uploadedUrl;
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                }
             }
-        }
-
-
-        public string GetUrlByApi(string url)
-        {
-            //Cloudinary cloudinary = new Cloudinary(Environment.GetEnvironmentVariable($"cloudinary://<{_configuration["Authentication:ApiKey"]}>:<{_configuration["Authentication:ApiSecret"]}>@duhbl9t9m"));
-            //cloudinary.Api.Secure = true;
-            //string imageName = url;
-
-            //// Verificar se a imagem existe
-            //var searchResult = cloudinary.Search().Fields(imageName);
-
-            //// Caso a imagem exista
-            //if (searchResult != null)
-            //{
-            //    // Obter a URL da imagem
-            //    string existingUrl = searchResult.ToUrl();
-            //    return existingUrl;
-            //}
-            //else
-            //{
-            //    // Upload da imagem
-            //    using (var stream = System.IO.File.OpenRead(url))
-            //    {
-            //        var uploadParams = new ImageUploadParams()
-            //        {
-            //            File = new FileDescription(url),
-            //            Transformation = new Transformation().Width(100).Height(100).Crop("scale")
-            //        };
-
-            //        var uploadResult = cloudinary.Upload(uploadParams);
-            //        return uploadResult?.Uri?.AbsoluteUri;
-            //    }
-            //}
-            return string.Empty;
         }
         private string FormatResult(List<HtmlNode> info)
         {
