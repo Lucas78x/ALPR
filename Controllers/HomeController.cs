@@ -119,7 +119,7 @@ namespace F.Controllers
                                     string placa = partesNomeArquivo[1];
                                     string modelo = GetPlaca(placa);
                                     DateTime dataHora = dataCriacao;
-                                    string url = await GetUrlByApi(arquivo);
+                                    string url = arquivo;
 
                                     Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
                                     imagensDoMes.Add(imagem);
