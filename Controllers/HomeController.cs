@@ -642,7 +642,7 @@ namespace F.Controllers
 
             try
             {
-                var uploadUrl = "http://192.0.2.25:8080/upload";
+                var uploadUrl = "http://127.0.0.1:8080/upload";
 
                 string imageName = ExtractFileName(url);
                 if (string.IsNullOrEmpty(imageName))
@@ -672,7 +672,7 @@ namespace F.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         var jsonResponse = JObject.Parse(responseString);
-                        var imageUrl = jsonResponse["url"]?.ToString().Replace("192.0.2.25", "192.0.2.25:8080");
+                        var imageUrl = jsonResponse["url"]?.ToString().Replace("127.0.0.1", "192.0.2.25:8080");
 
                         _cache.Set(url, imageUrl, TimeSpan.FromDays(360));
                         return imageUrl ?? string.Empty;
