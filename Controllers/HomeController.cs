@@ -642,7 +642,7 @@ namespace F.Controllers
                 return cachedUrl;
             }
 
-          
+
             var uploadUrl = "http://127.0.0.1:8080/upload"; // Altere para o seu endpoint
 
             using var content = new MultipartFormDataContent();
@@ -664,9 +664,6 @@ namespace F.Controllers
                 {
                     return imageName;
                 }
-
-                imageName = imageName.Replace(".jpg", string.Empty);
-                imageName = imageName.Replace(".png", string.Empty);
 
                 using var image = SixLabors.ImageSharp.Image.Load(imageStream);
 
@@ -690,7 +687,8 @@ namespace F.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = JObject.Parse(responseString);
-                    var imageUrl = jsonResponse["url"].ToString();
+                    var imageUrl = jsonResponse["url"].ToString().Replace("80", "8080");
+
                     _cache.Set(url, imageUrl, TimeSpan.FromMinutes(60)); // Cache for 60 minutes
                     return imageUrl;
                 }
