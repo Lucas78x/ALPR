@@ -8,6 +8,10 @@ using HtmlAgilityPack;
 using System.Reflection;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Caching.Memory;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using static System.Net.Mime.MediaTypeNames;
+using System.Net.Http.Headers;
 
 namespace F.Controllers
 {
@@ -24,6 +28,8 @@ namespace F.Controllers
         private readonly IConfiguration _configuration;
         private readonly IMemoryCache _cache;
         private static readonly Dictionary<string, string> Cache = new();
+        private static readonly HttpClient client = new HttpClient();
+
 
         public HomeController(HttpClient httpClient, IWebHostEnvironment webHostEnvironment, IConfiguration configuration, IMemoryCache cache)
         {
@@ -636,35 +642,65 @@ namespace F.Controllers
                 return cachedUrl;
             }
 
-            string imagePath = url;
-            byte[] imageData = System.IO.File.ReadAllBytes(imagePath);
+          
+            var uploadUrl = "http://127.0.0.1:8080/upload"; // Altere para o seu endpoint
 
-            using (var client = new HttpClient())
+            using var content = new MultipartFormDataContent();
+
+            // Carregar a imagem e comprimi-la
+            using (var imageStream = new FileStream(url, FileMode.Open, FileAccess.Read))
             {
-                using (var formData = new MultipartFormDataContent())
+                string imageName = string.Empty;
+
+                string regex = @"([^\\]+)$";
+
+                Match match = Regex.Match(url, regex);
+
+                if (match.Success)
                 {
-                    formData.Add(new StringContent(_configuration["Authentication:ApiKey"]), "key");
-                    formData.Add(new ByteArrayContent(imageData, 0, imageData.Length), "image", "imagem.jpg");
+                    imageName = match.Groups[1].Value;
+                }
+                else
+                {
+                    return imageName;
+                }
 
-                    HttpResponseMessage response = await client.PostAsync("https://api.imgbb.com/1/upload", formData);
+                imageName = imageName.Replace(".jpg", string.Empty);
+                imageName = imageName.Replace(".png", string.Empty);
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-                        JObject jsonResponse = JObject.Parse(apiResponse);
-                        string uploadedUrl = jsonResponse["data"]["url"].ToString();
+                using var image = SixLabors.ImageSharp.Image.Load(imageStream);
 
-                        // Store the URL in the cache
-                        _cache.Set(url, uploadedUrl, TimeSpan.FromMinutes(60)); // Cache for 60 minutes
+                // Comprimir a imagem para um formato mais leve, como WebP
+                using var compressedStream = new MemoryStream();
+                var encoder = new SixLabors.ImageSharp.Formats.Webp.WebpEncoder();
+                image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2)); // Redimensionar a imagem, se necessário
+                image.Save(compressedStream, encoder);
 
-                        return uploadedUrl;
-                    }
-                    else
-                    {
-                        return string.Empty;
-                    }
+                compressedStream.Seek(0, SeekOrigin.Begin);
+                using var fileContent = new StreamContent(compressedStream);
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/webp");
+
+                // Adicionar a imagem comprimida à requisição
+                content.Add(fileContent, "file", $"{imageName}.webp");
+
+                // Enviar a requisição para o servidor
+                var response = await client.PostAsync(uploadUrl, content);
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = JObject.Parse(responseString);
+                    var imageUrl = jsonResponse["url"].ToString();
+                    _cache.Set(url, imageUrl, TimeSpan.FromMinutes(60)); // Cache for 60 minutes
+                    return imageUrl;
+                }
+                else
+                {
+                    return string.Empty;
                 }
             }
+
+            return string.Empty;
         }
         private string FormatResult(List<HtmlNode> info)
         {
