@@ -346,39 +346,41 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Placas Recentes</h3>
                             </div>
-                            <div class="panel-body" style="max-height: 400px; overflow-y: auto;">
-                                <div class="list-group" id="placas-recentes">
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <div class="row align-items-center">
-                                                <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="fa fa-camera fa-lg mr-2"></i>
-                                                        <h5 class="card-title mb-0">Câmera</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="fa fa-car fa-lg mr-2"></i>
-                                                        <h5 class="card-title mb-0">Placa</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="fa fa-cube fa-lg mr-2"></i>
-                                                        <h5 class="card-title mb-0">Modelo</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-6 mb-3 mb-md-0" style="min-width: 90px;">
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="fa fa-calendar fa-lg mr-2"></i>
-                                                        <h5 class="card-title mb-0">Data</h5>
-                                                    </div>
-                                                </div>
+
+                            <!-- Títulos fixos com ícones -->
+                            <div class="card mb-3">
+                                <div class="card-body">                                  
+                                    <div class="row align-items-center">
+                                        <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fa fa-camera fa-lg mr-2"></i>
+                                                <h5 class="card-title mb-0">Câmera</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fa fa-car fa-lg mr-2"></i>
+                                                <h5 class="card-title mb-0">Placa</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fa fa-cube fa-lg mr-2"></i>
+                                                <h5 class="card-title mb-0">Modelo</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-6 mb-3 mb-md-0" style="min-width: 90px;">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fa fa-calendar fa-lg mr-2"></i>
+                                                <h5 class="card-title mb-0">Data</h5>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
+                            <div class="panel-body" style="max-height: 400px; overflow-y: auto;">
+                                <div class="list-group" id="placas-recentes">
                                     @{
                                         int CompareDates(string a, string b)
                                         {
@@ -421,7 +423,7 @@
                                                                 @{
                                                                     #region[Ajustar forma da Data]
                                                                     DateTime dataImagem = Model.ImagemRecentes[index].DateTime;
-                                                                    string timePart = dataImagem.ToString("HH:mm");
+                                                                    string timePart = dataImagem.ToString("HH:mm:ss");
                                                                     string amPmPart = dataImagem.Hour < 12 ? "AM" : "PM";
 
                                                                     if (dataImagem.Date != DateTime.Now.Date)
@@ -454,13 +456,13 @@
                                     thumbnail.style.display = "block";
                                 }
 
-
                                 function hideImage(index) {
                                     // Ocultar a imagem quando o mouse sai
                                     var thumbnail = document.getElementById(index);
                                     thumbnail.style.display = "none";
                                 }
                             </script>
+
                             <form action="/Home/FilterByCamera" method="get">
                                 <div class="text-right">
                                     <label for="camera-filter">Filtrar por câmera:</label>
@@ -472,8 +474,6 @@
                                     <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </form>
-
-
                         </div>
                     </div>
                 </div>

@@ -5,12 +5,10 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using System.Reflection;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Caching.Memory;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using static System.Net.Mime.MediaTypeNames;
 using System.Net.Http.Headers;
 
 namespace F.Controllers
@@ -27,6 +25,8 @@ namespace F.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IConfiguration _configuration;
         private readonly IMemoryCache _cache;
+        private static readonly HttpClient _client = new HttpClient();
+        private static readonly Regex _fileNameRegex = new Regex(@"[^\\/]+$", RegexOptions.Compiled);
         private static readonly Dictionary<string, string> Cache = new();
 
 
@@ -635,77 +635,73 @@ namespace F.Controllers
         }
         public async Task<string> GetUrlByApi(string url)
         {
-            // Check if the URL is already in the cache
             if (_cache.TryGetValue(url, out string cachedUrl))
             {
                 return cachedUrl;
             }
 
-            using var client = new HttpClient();
-
-            var uploadUrl = "http://192.0.2.25:8080/upload"; // Altere para o seu endpoint
-
-            using var content = new MultipartFormDataContent();
-
-            // Carregar a imagem e comprimi-la
-            using (var imageStream = new FileStream(url, FileMode.Open, FileAccess.Read))
+            try
             {
-                string imageName = string.Empty;
+                var uploadUrl = "http://192.0.2.25:8080/upload";
 
-                string regex = @"[^\\/]+$";
-
-
-                Match match = Regex.Match(url, regex);
-
-                if (match.Success)
-                {
-                    imageName = match.Value;
-                }
-                else
-                {
-                    return imageName;
-                }
-
-                Console.WriteLine(url);
-                Console.WriteLine(imageName);
-
-                imageName = imageName.Replace(".jpg", string.Empty);
-                imageName = imageName.Replace(".png", string.Empty);
-                imageName = imageName.Replace(".JPG", string.Empty);
-                imageName = imageName.Replace(".PNG", string.Empty);
-
-                using var image = SixLabors.ImageSharp.Image.Load(imageStream);
-
-                // Comprimir a imagem para um formato mais leve, como WebP
-                using var compressedStream = new MemoryStream();
-                var encoder = new SixLabors.ImageSharp.Formats.Webp.WebpEncoder();
-                image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2)); // Redimensionar a imagem, se necessário
-                image.Save(compressedStream, encoder);
-
-                compressedStream.Seek(0, SeekOrigin.Begin);
-                using var fileContent = new StreamContent(compressedStream);
-                fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/webp");
-
-                // Adicionar a imagem comprimida à requisição
-                content.Add(fileContent, "file", $"{imageName}.webp");
-
-                // Enviar a requisição para o servidor
-                var response = await client.PostAsync(uploadUrl, content);
-                var responseString = await response.Content.ReadAsStringAsync();
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var jsonResponse = JObject.Parse(responseString);
-                    var imageUrl = jsonResponse["url"].ToString().Replace("192.0.2.25", "192.0.2.25:8080");
-
-                    _cache.Set(url, imageUrl, TimeSpan.FromDays(360));
-                    return imageUrl ?? string.Empty;
-                }
-                else
+                string imageName = ExtractFileName(url);
+                if (string.IsNullOrEmpty(imageName))
                 {
                     return string.Empty;
                 }
+
+                using (var imageStream = new FileStream(url, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true))
+                using (var image = SixLabors.ImageSharp.Image.Load(imageStream))
+                {
+                    // Compress image to WebP format
+                    using var compressedStream = new MemoryStream();
+                    var encoder = new SixLabors.ImageSharp.Formats.Webp.WebpEncoder();
+                    image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2)); // Resize image if necessary
+                    image.Save(compressedStream, encoder);
+
+                    compressedStream.Seek(0, SeekOrigin.Begin);
+                    using var content = new MultipartFormDataContent();
+                    using var fileContent = new StreamContent(compressedStream);
+                    fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/webp");
+                    content.Add(fileContent, "file", $"{imageName}.webp");
+
+                    // Send the request to the server
+                    var response = await _client.PostAsync(uploadUrl, content);
+                    var responseString = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var jsonResponse = JObject.Parse(responseString);
+                        var imageUrl = jsonResponse["url"]?.ToString().Replace("192.0.2.25", "192.0.2.25:8080");
+
+                        _cache.Set(url, imageUrl, TimeSpan.FromDays(360));
+                        return imageUrl ?? string.Empty;
+                    }
+                    else
+                    {
+                        // Optionally log the error
+                        return string.Empty;
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                // Optionally log the exception
+                return string.Empty;
+            }
+        }
+
+        private string ExtractFileName(string url)
+        {
+            var match = _fileNameRegex.Match(url);
+            if (match.Success)
+            {
+                var imageName = match.Value;
+                imageName = imageName.Replace(".jpg", string.Empty, StringComparison.OrdinalIgnoreCase)
+                                     .Replace(".png", string.Empty, StringComparison.OrdinalIgnoreCase);
+                return imageName;
+            }
+            return string.Empty;
         }
         private string FormatResult(List<HtmlNode> info)
         {
