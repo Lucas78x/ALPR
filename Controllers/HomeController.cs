@@ -698,7 +698,7 @@ namespace F.Controllers
                     var jsonResponse = JObject.Parse(responseString);
                     var imageUrl = jsonResponse["url"].ToString().Replace("192.0.2.25", "192.0.2.25:8080");
 
-                    _cache.Set(url, imageUrl, TimeSpan.FromMinutes(60)); // Cache for 60 minutes
+                    _cache.Set(url, imageUrl, TimeSpan.FromDays(360));
                     return imageUrl ?? string.Empty;
                 }
                 else
@@ -709,7 +709,7 @@ namespace F.Controllers
         }
         private string FormatResult(List<HtmlNode> info)
         {
-            return $"{info[0]?.InnerText} ({info[1]?.InnerText?.Substring(0, (info[1]?.InnerText?.Length ?? 0) > 8 ? 8 : info[1]?.InnerText?.Length ?? 0)})";
+            return $"{info[1]?.InnerText}";
         }
         public static bool Verifica(List<HtmlNode> lista)
             => lista[0] is not null;

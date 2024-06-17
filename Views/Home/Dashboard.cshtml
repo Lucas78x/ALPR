@@ -348,6 +348,37 @@
                             </div>
                             <div class="panel-body" style="max-height: 400px; overflow-y: auto;">
                                 <div class="list-group" id="placas-recentes">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fa fa-camera fa-lg mr-2"></i>
+                                                        <h5 class="card-title mb-0">Câmera</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fa fa-car fa-lg mr-2"></i>
+                                                        <h5 class="card-title mb-0">Placa</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fa fa-cube fa-lg mr-2"></i>
+                                                        <h5 class="card-title mb-0">Modelo</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-6 mb-3 mb-md-0" style="min-width: 90px;">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fa fa-calendar fa-lg mr-2"></i>
+                                                        <h5 class="card-title mb-0">Data</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     @{
                                         int CompareDates(string a, string b)
                                         {
@@ -371,14 +402,9 @@
                                                     <div class="card-body">
                                                         <div class="row align-items-center">
                                                             <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                                <div class="d-flex align-items-center">
-                                                                    <h5 class="card-title mb-0">Câmera</h5>
-                                                                </div>
+                                                                <p class="card-text text-truncate" style="white-space: nowrap;">@Model.ImagemRecentes[index].Camera</p>
                                                             </div>
                                                             <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                                <div class="d-flex align-items-center">
-                                                                    <h5 class="card-title mb-0">Placa</h5>
-                                                                </div>
                                                                 <div style="position: relative;">
                                                                     <p class="card-text text-truncate" style="white-space: nowrap; z-index: 1;">
                                                                         <a href="@Model.ImagemRecentes[index].Url" target="_blank" onmouseover="showImage('@Model.ImagemRecentes[index].Url', @index)" onmouseout="hideImage(@index)">
@@ -387,21 +413,6 @@
                                                                         <img id="@index" src="" alt="Thumbnail" style="z-index:1; position: absolute; display: none; max-width: 250px; max-height: 250px; border: 2px solid #DDD; top: -85px; left: 85px;">
                                                                     </p>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                                <div class="d-flex align-items-center">
-                                                                    <h5 class="card-title mb-0">Modelo</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3 col-6 mb-3 mb-md-0" style="min-width: 90px;">
-                                                                <div class="d-flex align-items-center">
-                                                                    <h5 class="card-title mb-0">Data</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row align-items-center">
-                                                            <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                                <p class="card-text text-truncate" style="white-space: nowrap;">@Model.ImagemRecentes[index].Camera</p>
                                                             </div>
                                                             <div class="col-md-3 col-6 mb-3 mb-md-0">
                                                                 <p class="card-text text-truncate" style="white-space: nowrap;">@Model.ImagemRecentes[index].Modelo</p>
@@ -433,7 +444,6 @@
                                     }
                                 </div>
                             </div>
-
 
                             <script>
                                 function showImage(url, index) {
