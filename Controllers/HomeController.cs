@@ -643,7 +643,7 @@ namespace F.Controllers
             }
 
           
-            var uploadUrl = "http://127.0.0.1:8080/upload"; // Altere para o seu endpoint
+            var uploadUrl = "http://192.0.2.25:8080/upload"; // Altere para o seu endpoint
 
             using var content = new MultipartFormDataContent();
 
@@ -658,7 +658,7 @@ namespace F.Controllers
 
                 if (match.Success)
                 {
-                    imageName = match.Groups[1].Value;
+                    imageName = match.Value;
                 }
                 else
                 {
@@ -690,7 +690,7 @@ namespace F.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = JObject.Parse(responseString);
-                    var imageUrl = jsonResponse["url"].ToString().Replace("172.0.0.1", "127.0.0.1:8080");
+                    var imageUrl = jsonResponse["url"].ToString().Replace("192.0.2.25", "192.0.2.25:8080");
 
                     _cache.Set(url, imageUrl, TimeSpan.FromMinutes(60)); // Cache for 60 minutes
                     return imageUrl;
