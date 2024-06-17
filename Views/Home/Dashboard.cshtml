@@ -10,6 +10,7 @@
 <head>
 
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -29,6 +30,26 @@
 
     <!-- Custom Fonts -->
     <link href="~/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+        .thumbnail-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .thumbnail {
+            z-index: 1;
+            position: absolute;
+            display: none;
+            width: 250px;
+            height: 250px;
+            border: 2px solid #DDD;
+            top: -85px;
+            left: 85px;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -381,16 +402,17 @@
                                                                     <i class="fa fa-car fa-lg mr-2"></i>
                                                                     <h5 class="card-title mb-0">Placa</h5>
                                                                 </div>
-                                                                <div style="position: relative;">
-                                                                    <p class="card-text text-truncate" style="white-space: nowrap; z-index: 1;">
-                                                                        <div style="position: relative;">
+                                                                <body>
+                                                                    <div class="card-text text-truncate" style="white-space: nowrap; z-index: 1;">
+                                                                        <div class="thumbnail-container">
                                                                             <a href="@Model.ImagemRecentes[index].Url" target="_blank" onmouseover="showImage('@Model.ImagemRecentes[index].Url', @index)" onmouseout="hideImage(@index)">
                                                                                 @Model.ImagemRecentes[index].Placa
                                                                             </a>
-                                                                            <img id="@index" src="" alt="Thumbnail" style="z-index:1; position: absolute; display: none; max-width: 250px; max-height: 250px; border: 2px solid #DDD; top: -85px; left: 85px;">
+                                                                            <div id="@index" class="thumbnail"></div>
                                                                         </div>
-                                                                    </p>
-                                                                </div>
+                                                                    </div>
+                                                                    <img src="@Model.ImagemRecentes[Model.LastIndex].Url" alt="Imagem" style="width: 100%;">
+                                                                </body>
                                                             </div>
                                                             <div class="col-md-3 col-6 mb-3 mb-md-0">
                                                                 <div class="d-flex align-items-center">
@@ -430,19 +452,14 @@
                                     }
                                 </div>
                             </div>
-
                             <script>
                                 function showImage(url, index) {
                                     var thumbnail = document.getElementById(index);
-                                    thumbnail.src = url;
-
-                                    // Exibir a imagem no contêiner separado
+                                    thumbnail.style.backgroundImage = `url(${url})`;
                                     thumbnail.style.display = "block";
                                 }
 
-
                                 function hideImage(index) {
-                                    // Ocultar a imagem quando o mouse sai
                                     var thumbnail = document.getElementById(index);
                                     thumbnail.style.display = "none";
                                 }
