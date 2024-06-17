@@ -671,21 +671,23 @@ namespace F.Controllers
 
                 imageName = imageName.Replace(".jpg", string.Empty);
                 imageName = imageName.Replace(".png", string.Empty);
+                imageName = imageName.Replace(".JPG", string.Empty);
+                imageName = imageName.Replace(".PNG", string.Empty);
 
                 using var image = SixLabors.ImageSharp.Image.Load(imageStream);
 
                 // Comprimir a imagem para um formato mais leve, como WebP
                 using var compressedStream = new MemoryStream();
-                var encoder = new SixLabors.ImageSharp.Formats.Webp.WebpEncoder();
+                var encoder = new SixLabors.ImageSharp.Formats.Jpeg.JpegEncoder();
                 image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2)); // Redimensionar a imagem, se necessário
                 image.Save(compressedStream, encoder);
 
                 compressedStream.Seek(0, SeekOrigin.Begin);
                 using var fileContent = new StreamContent(compressedStream);
-                fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/webp");
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
 
                 // Adicionar a imagem comprimida à requisição
-                content.Add(fileContent, "file", $"{imageName}.webp");
+                content.Add(fileContent, "file", $"{imageName}.jpg");
 
                 // Enviar a requisição para o servidor
                 var response = await client.PostAsync(uploadUrl, content);
