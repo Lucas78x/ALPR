@@ -652,7 +652,8 @@ namespace F.Controllers
             {
                 string imageName = string.Empty;
 
-                string regex = @"([^\\]+)$";
+                string regex = @"[^\\/]+$";
+
 
                 Match match = Regex.Match(url, regex);
 
