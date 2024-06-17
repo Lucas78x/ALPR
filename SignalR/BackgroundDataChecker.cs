@@ -41,7 +41,7 @@ public class BackgroundDataChecker : BackgroundService
                 await _hubContext.Clients.All.SendAsync("AtualizarDados");
             }
 
-            await Task.Delay(30000, stoppingToken); // Verifica a cada 30 segundos
+            await Task.Delay(5000, stoppingToken); // Verifica a cada 5 segundos
         }
     }
 
