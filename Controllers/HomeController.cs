@@ -666,6 +666,9 @@ namespace F.Controllers
                     return imageName;
                 }
 
+                Console.WriteLine(url);
+                Console.WriteLine(imageName);
+
                 imageName = imageName.Replace(".jpg", string.Empty);
                 imageName = imageName.Replace(".png", string.Empty);
 
