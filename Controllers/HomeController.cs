@@ -119,7 +119,7 @@ namespace F.Controllers
                                     string placa = partesNomeArquivo[1];
                                     string modelo = GetPlaca(placa);
                                     DateTime dataHora = dataCriacao;
-                                    string url = arquivo;
+                                    string url = await GetUrlByApi(arquivo);
 
                                     Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
                                     imagensDoMes.Add(imagem);
@@ -678,16 +678,16 @@ namespace F.Controllers
 
                 // Comprimir a imagem para um formato mais leve, como WebP
                 using var compressedStream = new MemoryStream();
-                var encoder = new SixLabors.ImageSharp.Formats.Jpeg.JpegEncoder();
+                var encoder = new SixLabors.ImageSharp.Formats.Webp.WebpEncoder();
                 image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2)); // Redimensionar a imagem, se necessário
                 image.Save(compressedStream, encoder);
 
                 compressedStream.Seek(0, SeekOrigin.Begin);
                 using var fileContent = new StreamContent(compressedStream);
-                fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/webp");
 
                 // Adicionar a imagem comprimida à requisição
-                content.Add(fileContent, "file", $"{imageName}.jpg");
+                content.Add(fileContent, "file", $"{imageName}.webp");
 
                 // Enviar a requisição para o servidor
                 var response = await client.PostAsync(uploadUrl, content);
