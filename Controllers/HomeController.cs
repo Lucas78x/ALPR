@@ -28,7 +28,6 @@ namespace F.Controllers
         private readonly IConfiguration _configuration;
         private readonly IMemoryCache _cache;
         private static readonly Dictionary<string, string> Cache = new();
-        private static readonly HttpClient client = new HttpClient();
 
 
         public HomeController(HttpClient httpClient, IWebHostEnvironment webHostEnvironment, IConfiguration configuration, IMemoryCache cache)
@@ -642,7 +641,8 @@ namespace F.Controllers
                 return cachedUrl;
             }
 
-          
+            using var client = new HttpClient();
+
             var uploadUrl = "http://192.0.2.25:8080/upload"; // Altere para o seu endpoint
 
             using var content = new MultipartFormDataContent();
@@ -693,15 +693,13 @@ namespace F.Controllers
                     var imageUrl = jsonResponse["url"].ToString().Replace("192.0.2.25", "192.0.2.25:8080");
 
                     _cache.Set(url, imageUrl, TimeSpan.FromMinutes(60)); // Cache for 60 minutes
-                    return imageUrl;
+                    return imageUrl ?? string.Empty;
                 }
                 else
                 {
                     return string.Empty;
                 }
             }
-
-            return string.Empty;
         }
         private string FormatResult(List<HtmlNode> info)
         {
