@@ -273,41 +273,40 @@ ul.alert-dropdown {
         background-color: #428bca;
     }
 
-/* Estilo para os painéis */
+    /* Estilizando a tabela */
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.table a:hover {
+    text-decoration: underline;
+}
+
+/* Cartões de alertas recentes */
 .card {
-    border: 1px solid #e2e2e2;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    border: 1px solid #e3e6f0;
+    border-radius: 0.35rem;
 }
 
-.card-header {
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #e2e2e2;
-    padding: 10px 20px;
-    border-radius: 5px 5px 0 0;
+.card .card-body {
+    padding: 1rem;
 }
 
-    .card-header h5 {
-        margin-bottom: 0;
-    }
-
-.card-body {
-    padding: 8px;
+.card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
-    /* Estilo para os ícones */
-    .card-body .fa {
-        color: #007bff;
-    }
-
-    /* Estilo para os títulos e informações */
-    .card-body .font-weight-bold {
-        color: #333;
-    }
-
-    .card-body span {
-        display: block;
-        margin-top: 5px;
-    }
+.card-text {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    color: #858796;
+}
 
