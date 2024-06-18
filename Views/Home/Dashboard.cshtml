@@ -148,21 +148,7 @@
         <div id="page-wrapper">
 
             <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Painel
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-dashboard"></i> Painel
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-
+                
                 <!-- /. EDIT LPR-->
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
@@ -304,11 +290,6 @@
                     </div>
                 </div>
                 <!-- /.row -->
-
-                <div class="row">
-                </div>
-                <!-- /.row -->
-
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="panel panel-default">
@@ -346,89 +327,171 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Placas Recentes</h3>
                             </div>
+                            <div id="platetable_container" class="card-body p-0">
+                                <div class="table-responsive mb-0">
+                                    <div id="results-table-box">
+                                        <table class="table table-striped table-hover mb-0" id="platetable" style="max-height: 400px; overflow-y: auto;">
+                                            <thead>
+                                                <tr>
+                                                    <th><i class="fa fa-camera" style="font-size: 13px;"></i> Camera</th>
+                                                    <th><i class="fa fa-car" style="font-size: 13px;"></i> Placa</th>
+                                                    <th><i class="fa fa-cube" style="font-size: 13px;"></i> Modelo</th>
+                                                    <th><i class="fa fa-clock" style="font-size: 13px;"></i> Hora</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    if (Model.ImagemRecentes.Count > 0)
+                                                    {
+                                                        var array_datas = Model.ImagemRecentes
+                                                        .OrderByDescending(imagemRecente => imagemRecente.DateTime)
+                                                        .Select(imagemRecente => imagemRecente.DateTime)
+                                                        .ToArray();
 
-                            <!-- Títulos fixos com ícones -->
-                            <div class="card mb-3">
-                                <div class="card-body">                                  
-                                    <div class="row align-items-center">
-                                        <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <i class="fa fa-camera fa-lg mr-2"></i>
-                                                <h5 class="card-title mb-0">Câmera</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <i class="fa fa-car fa-lg mr-2"></i>
-                                                <h5 class="card-title mb-0">Placa</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <i class="fa fa-cube fa-lg mr-2"></i>
-                                                <h5 class="card-title mb-0">Modelo</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-6 mb-3 mb-md-0" style="min-width: 90px;">
-                                            <div class="d-flex align-items-center">
-                                                <i class="fa fa-calendar fa-lg mr-2"></i>
-                                                <h5 class="card-title mb-0">Data</h5>
-                                            </div>
-                                        </div>
+                                                        foreach (var data in array_datas)
+                                                        {
+                                                            var index = Array.IndexOf(Model.ImagemRecentes.Select(imagemRecente => imagemRecente.DateTime).ToArray(), data);
+                                                            <tr>
+                                                                <td>@Model.ImagemRecentes[index].Camera</td>
+                                                                <td>
+                                                                    <div style="position: relative;">
+                                                                        <p class="card-text text-truncate" style="white-space: nowrap; z-index: 1;">
+                                                                            <a href="@Model.ImagemRecentes[index].Url" target="_blank"
+                                                                               onmouseover="showImage('@Model.ImagemRecentes[index].Url', @index)"
+                                                                               onmouseout="hideImage(@index)">
+                                                                                @Model.ImagemRecentes[index].Placa
+                                                                            </a>
+                                                                            <img id="@index" src="" alt="Thumbnail" style="z-index: 2; position: absolute;
+                                                                            display: none; max-width: 250px; max-height: 250px; border: 2px solid #DDD;
+                                                                            top: -85px; left: 85px;">
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>@Model.ImagemRecentes[index].Modelo</td>
+                                                                <td>
+                                                                    @{
+                                                                        DateTime dataImagem = Model.ImagemRecentes[index].DateTime;
+                                                                        string timePart = dataImagem.ToString("HH:mm:ss");
+                                                                        string amPmPart = dataImagem.Hour < 12 ? "AM" : "PM";
+
+                                                                        if (dataImagem.Date != DateTime.Now.Date)
+                                                                        {
+                                                                            Model.formattedDate = $"{timePart} {amPmPart} {dataImagem:dd/MM}";
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            Model.formattedDate = $"{timePart} {amPmPart}";
+                                                                        }
+                                                                    }
+                                                                    @Model.formattedDate
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td align="center" height="100px" colspan="4">
+                                                                <strong style="font-size: 1.3em;">No results found</strong>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                        <script>
+                                            function showImage(url, index) {
+                                                var thumbnail = document.getElementById(index);
+                                                thumbnail.src = url;
+
+                                                // Exibir a imagem no contêiner separado
+                                                thumbnail.style.display = "block";
+                                            }
+
+                                            function hideImage(index) {
+                                                // Ocultar a imagem quando o mouse sai
+                                                var thumbnail = document.getElementById(index);
+                                                thumbnail.style.display = "none";
+                                            }
+                                        </script>
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bell fa-fw"></i> Alertas Recentes</h3>
+                            </div>
                             <div class="panel-body" style="max-height: 400px; overflow-y: auto;">
-                                <div class="list-group" id="placas-recentes">
+                                <div class="list-group" id="alertas-recentes">
                                     @{
-                                        int CompareDates(string a, string b)
+                                        // Verificar se AlertasRecentes está definido antes de usá-lo
+                                        if (Model.AlertasRecentes.Count > 0)
                                         {
-                                            return DateTime.Parse(b).CompareTo(DateTime.Parse(a));
-                                        }
 
-                                        // Verificar se array_cameras está definido antes de usá-lo
-                                        if (Model.ImagemRecentes.Count > 0)
-                                        {
+                                            <audio style="display: none" controls autoplay>
+                                                <source src="~/Sounds/alerta.ogg" type="audio/ogg">
+                                                <source src="~/Sounds/alerta.mp3" type="audio/mpeg">
+                                            </audio>
+
+
                                             // Organizar os dados pela data
-                                            var array_datas = Model.ImagemRecentes
-                                            .OrderByDescending(imagemRecente => imagemRecente.DateTime)
-                                            .Select(imagemRecente => imagemRecente.DateTime)
+                                            var array_datas = Model.AlertasRecentes
+                                            .OrderByDescending(alertaRecente => alertaRecente.DateTime)
+                                            .Select(alertaRecente => alertaRecente.DateTime)
                                             .ToArray();
-                                            // Iterar sobre os arrays e exibir os grupos de placas capturadas recentemente, começando do mais recente
+                                            // Iterar sobre os arrays e exibir os alertas capturados recentemente, começando do mais recente
                                             foreach (var data in array_datas)
                                             {
                                                 // Encontrar o índice correspondente da data atual no array original
-                                                var index = Array.IndexOf(Model.ImagemRecentes.Select(imagemRecente => imagemRecente.DateTime).ToArray(), data);
+                                                var index = Array.IndexOf(Model.AlertasRecentes.Select(alertaRecente => alertaRecente.DateTime).ToArray(), data);
                                                 <div class="card mb-3">
                                                     <div class="card-body">
                                                         <div class="row align-items-center">
                                                             <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                                <p class="card-text text-truncate" style="white-space: nowrap;">@Model.ImagemRecentes[index].Camera</p>
+                                                                <div class="d-flex align-items-center">
+                                                                    <i class="fa fa-camera fa-lg mr-2"></i>
+                                                                    <h5 class="card-title mb-0">Câmera</h5>
+                                                                </div>
+                                                                <p class="card-text text-truncate" style="white-space: nowrap;">@Model.AlertasRecentes[index].Camera</p>
                                                             </div>
                                                             <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                                                <div class="d-flex align-items-center">
+                                                                    <i class="fa fa-car fa-lg mr-2"></i>
+                                                                    <h5 class="card-title mb-0">Placa</h5>
+                                                                </div>
                                                                 <div style="position: relative;">
                                                                     <p class="card-text text-truncate" style="white-space: nowrap; z-index: 1;">
-                                                                        <a href="@Model.ImagemRecentes[index].Url" target="_blank" onmouseover="showImage('@Model.ImagemRecentes[index].Url', @index)" onmouseout="hideImage(@index)">
-                                                                            @Model.ImagemRecentes[index].Placa
+                                                                        <a href="@Model.AlertasRecentes[index].Url">
+                                                                            @Model.AlertasRecentes[index].Placa
                                                                         </a>
-                                                                        <img id="@index" src="" alt="Thumbnail" style="z-index:1; position: absolute; display: none; max-width: 250px; max-height: 250px; border: 2px solid #DDD; top: -85px; left: 85px;">
                                                                     </p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                                <p class="card-text text-truncate" style="white-space: nowrap;">@Model.ImagemRecentes[index].Modelo</p>
+                                                                <div class="d-flex align-items-center">
+                                                                    <i class="fa fa-cube fa-lg mr-2"></i>
+                                                                    <h5 class="card-title mb-0">Modelo</h5>
+                                                                </div>
+                                                                <p class="card-text text-truncate" style="white-space: nowrap;">@Model.AlertasRecentes[index].Modelo</p>
                                                             </div>
                                                             <div class="col-md-3 col-6 mb-3 mb-md-0" style="min-width: 90px;">
+                                                                <div class="d-flex align-items-center">
+                                                                    <i class="fa fa-calendar fa-lg mr-2"></i>
+                                                                    <h5 class="card-title mb-0">Data</h5>
+                                                                </div>
                                                                 @{
                                                                     #region[Ajustar forma da Data]
-                                                                    DateTime dataImagem = Model.ImagemRecentes[index].DateTime;
-                                                                    string timePart = dataImagem.ToString("HH:mm:ss");
-                                                                    string amPmPart = dataImagem.Hour < 12 ? "AM" : "PM";
+                                                                    DateTime dataAlerta = Model.AlertasRecentes[index].DateTime;
+                                                                    string timePart = dataAlerta.ToString("HH:mm");
+                                                                    string amPmPart = dataAlerta.Hour < 12 ? "AM" : "PM";
 
-                                                                    if (dataImagem.Date != DateTime.Now.Date)
+                                                                    if (dataAlerta.Date != DateTime.Now.Date)
                                                                     {
-                                                                        Model.formattedDate = $"{timePart} {amPmPart} {dataImagem:dd/MM}";
+                                                                        Model.formattedDate = $"{timePart} {amPmPart} {dataAlerta:MM/dd}";
                                                                     }
                                                                     else
                                                                     {
@@ -443,144 +506,21 @@
                                                 </div>
                                             }
                                         }
-                                    }
-                                </div>
-                            </div>
-
-                            <script>
-                                function showImage(url, index) {
-                                    var thumbnail = document.getElementById(index);
-                                    thumbnail.src = url;
-
-                                    // Exibir a imagem no contêiner separado
-                                    thumbnail.style.display = "block";
-                                }
-
-                                function hideImage(index) {
-                                    // Ocultar a imagem quando o mouse sai
-                                    var thumbnail = document.getElementById(index);
-                                    thumbnail.style.display = "none";
-                                }
-                            </script>
-
-                            <form action="/Home/FilterByCamera" method="get">
-                                <div class="text-right">
-                                    <label for="camera-filter">Filtrar por câmera:</label>
-                                    <select id="camera-filter" name="camera">
-                                        <option value="">Todas as Câmeras</option>
-                                    </select>
-                                    <input type="hidden" name="ImagemRecentes" value="@JsonConvert.SerializeObject(Model.ImagemRecentes)" />
-                                    <button type="submit">Filtrar</button>
-                                    <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bell fa-fw"></i> Alertas Recentes</h3>
-                        </div>
-                        <div class="panel-body" style="max-height: 400px; overflow-y: auto;">
-                            <div class="list-group" id="alertas-recentes">
-                                @{
-                                    // Verificar se AlertasRecentes está definido antes de usá-lo
-                                    if (Model.AlertasRecentes.Count > 0)
-                                    {
-
-                                        <audio style="display: none" controls autoplay>
-                                            <source src="~/Sounds/alerta.ogg" type="audio/ogg">
-                                            <source src="~/Sounds/alerta.mp3" type="audio/mpeg">
-                                        </audio>
-
-
-                                        // Organizar os dados pela data
-                                        var array_datas = Model.AlertasRecentes
-                                        .OrderByDescending(alertaRecente => alertaRecente.DateTime)
-                                        .Select(alertaRecente => alertaRecente.DateTime)
-                                        .ToArray();
-                                        // Iterar sobre os arrays e exibir os alertas capturados recentemente, começando do mais recente
-                                        foreach (var data in array_datas)
+                                        else
                                         {
-                                            // Encontrar o índice correspondente da data atual no array original
-                                            var index = Array.IndexOf(Model.AlertasRecentes.Select(alertaRecente => alertaRecente.DateTime).ToArray(), data);
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="fa fa-camera fa-lg mr-2"></i>
-                                                                <h5 class="card-title mb-0">Câmera</h5>
-                                                            </div>
-                                                            <p class="card-text text-truncate" style="white-space: nowrap;">@Model.AlertasRecentes[index].Camera</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="fa fa-car fa-lg mr-2"></i>
-                                                                <h5 class="card-title mb-0">Placa</h5>
-                                                            </div>
-                                                            <div style="position: relative;">
-                                                                <p class="card-text text-truncate" style="white-space: nowrap; z-index: 1;">
-                                                                    <a href="@Model.AlertasRecentes[index].Url">
-                                                                        @Model.AlertasRecentes[index].Placa
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 col-6 mb-3 mb-md-0">
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="fa fa-cube fa-lg mr-2"></i>
-                                                                <h5 class="card-title mb-0">Modelo</h5>
-                                                            </div>
-                                                            <p class="card-text text-truncate" style="white-space: nowrap;">@Model.AlertasRecentes[index].Modelo</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-6 mb-3 mb-md-0" style="min-width: 90px;">
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="fa fa-calendar fa-lg mr-2"></i>
-                                                                <h5 class="card-title mb-0">Data</h5>
-                                                            </div>
-                                                            @{
-                                                                #region[Ajustar forma da Data]
-                                                                DateTime dataAlerta = Model.AlertasRecentes[index].DateTime;
-                                                                string timePart = dataAlerta.ToString("HH:mm");
-                                                                string amPmPart = dataAlerta.Hour < 12 ? "AM" : "PM";
-
-                                                                if (dataAlerta.Date != DateTime.Now.Date)
-                                                                {
-                                                                    Model.formattedDate = $"{timePart} {amPmPart} {dataAlerta:MM/dd}";
-                                                                }
-                                                                else
-                                                                {
-                                                                    Model.formattedDate = $"{timePart} {amPmPart}";
-                                                                }
-                                                                #endregion
-                                                            }
-                                                            <p class="card-text text-truncate" style="white-space: nowrap;">@Model.formattedDate</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <p>Sem Alertas Recentes</p>
                                         }
                                     }
-                                    else
-                                    {
-                                        <p>Sem Alertas Recentes</p>
-                                    }
-                                }
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- /.row -->
             </div>
+            <!-- /.container-fluid -->
         </div>
-        <!-- /.row -->
-
-    </div>
-    <!-- /.container-fluid -->
-    </div>
-    <!-- /#page-wrapper -->
+        <!-- /#page-wrapper -->
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.10/signalr.min.js"></script>

@@ -53,7 +53,7 @@ namespace F.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Dashboard()
-        {
+         {
             var email = HttpContext.Session.GetString("Email");
             if (string.IsNullOrEmpty(email))
             {
@@ -119,15 +119,18 @@ namespace F.Controllers
                                     string placa = partesNomeArquivo[1];
                                     string modelo = GetPlaca(placa);
                                     DateTime dataHora = dataCriacao;
-                                    string url = await GetUrlByApi(arquivo);
-
-                                    Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
-                                    imagensDoMes.Add(imagem);
-
-                                    var alerta = places?.FirstOrDefault(x => x.Placa == placa);
-                                    if (alerta != null && dataHora.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
+                                  
+                                    if (dataHora >= DateTime.Now.AddHours(-1))
                                     {
-                                        alertasRecentes.Add(imagem);
+                                        string url = await GetUrlByApi(arquivo);
+                                        Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
+                                        imagensDoMes.Add(imagem);
+
+                                        var alerta = places?.FirstOrDefault(x => x.Placa == placa);
+                                        if (alerta != null && dataHora.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
+                                        {
+                                            alertasRecentes.Add(imagem);
+                                        }
                                     }
                                 }
                             });
@@ -642,7 +645,7 @@ namespace F.Controllers
 
             try
             {
-                var uploadUrl = "http://127.0.0.1:8080/upload";
+                var uploadUrl = "http://192.0.2.25:8080/upload";
 
                 string imageName = ExtractFileName(url);
                 if (string.IsNullOrEmpty(imageName))
@@ -672,7 +675,7 @@ namespace F.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         var jsonResponse = JObject.Parse(responseString);
-                        var imageUrl = jsonResponse["url"]?.ToString().Replace("127.0.0.1", "192.0.2.25:8080");
+                        var imageUrl = jsonResponse["url"]?.ToString().Replace("192.0.2.25", "192.0.2.25:8080");
 
                         _cache.Set(url, imageUrl, TimeSpan.FromDays(360));
                         return imageUrl ?? string.Empty;
