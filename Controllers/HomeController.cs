@@ -53,7 +53,7 @@ namespace F.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Dashboard()
-         {
+        {
             var email = HttpContext.Session.GetString("Email");
             if (string.IsNullOrEmpty(email))
             {
@@ -119,19 +119,17 @@ namespace F.Controllers
                                     string placa = partesNomeArquivo[1];
                                     string modelo = GetPlaca(placa);
                                     DateTime dataHora = dataCriacao;
-                                  
-                                    if (dataHora >= DateTime.Now.AddHours(-1))
-                                    {
-                                        string url = await GetUrlByApi(arquivo);
-                                        Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
-                                        imagensDoMes.Add(imagem);
+                                    string url = await GetUrlByApi(arquivo);
 
-                                        var alerta = places?.FirstOrDefault(x => x.Placa == placa);
-                                        if (alerta != null && dataHora.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
-                                        {
-                                            alertasRecentes.Add(imagem);
-                                        }
+                                    Imagem imagem = new Imagem(modelo, placa, dataHora, url, cameraInfo.Name);
+                                    imagensDoMes.Add(imagem);
+
+                                    var alerta = places?.FirstOrDefault(x => x.Placa == placa);
+                                    if (alerta != null && dataHora.Date == today && !alertasRecentes.Any(x => x.Placa == placa && x.DateTime == dataHora))
+                                    {
+                                        alertasRecentes.Add(imagem);
                                     }
+
                                 }
                             });
 

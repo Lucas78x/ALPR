@@ -290,38 +290,7 @@
                     </div>
                 </div>
                 <!-- /.row -->
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>Ultima Placa</h3>
-                            </div>
-                            <div class="panel-body">
-                                @{
-
-                                    if (Model.LastIndex != -1)
-                                    {
-                                        <img src="@Model.ImagemRecentes[Model.LastIndex].Url" alt="Imagem" style="width: 100%;">
-                                    }
-                                }
-                                <div class="col-md-3">
-                                    @{
-                                        if (Model.LastIndex != -1)
-                                        {
-                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-camera fa-lg"></i>ﾠ @Model.ImagemRecentes[Model.LastIndex].Camera</h5>
-                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-fw fa-car"></i><a href="URL_DE_DESTINO" style="display: inline; text-decoration: none;">ﾠ @Model.ImagemRecentes[Model.LastIndex].Placa</a></h5>
-                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-fw fa-cube"></i>ﾠ @Model.ImagemRecentes[Model.LastIndex].Modelo</h5>
-                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-calendar fa-lg"></i>ﾠ @($"{Model.ImagemRecentes[Model.LastIndex].DateTime:HH:mm}")</h5>
-                                        }
-                                    }
-                                </div>
-                                <div id="morris-donut-chart"></div>
-                                <div class="text-right">
-                                    <a href="#">Ver Detalhes <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row">                  
                     <div class="col-lg-8">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -420,7 +389,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-lg-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-bell fa-fw"></i> Alertas Recentes</h3>
@@ -511,6 +480,37 @@
                                             <p>Sem Alertas Recentes</p>
                                         }
                                     }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>Ultima Placa</h3>
+                            </div>
+                            <div class="panel-body">
+                                @{
+
+                                    if (Model.LastIndex != -1)
+                                    {
+                                        <img src="@Model.ImagemRecentes[Model.LastIndex].Url" alt="Imagem" style="width: 100%;">
+                                    }
+                                }
+                                <div class="col-md-3">
+                                    @{
+                                        if (Model.LastIndex != -1)
+                                        {
+                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-camera fa-lg"></i>ﾠ @Model.ImagemRecentes[Model.LastIndex].Camera</h5>
+                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-fw fa-car"></i><a href="URL_DE_DESTINO" style="display: inline; text-decoration: none;">ﾠ @Model.ImagemRecentes[Model.LastIndex].Placa</a></h5>
+                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-fw fa-cube"></i>ﾠ @Model.ImagemRecentes[Model.LastIndex].Modelo</h5>
+                                            <h5 class="card-title text-nowrap" style="display: inline-block; vertical-align: middle;"><i class="fa fa-calendar fa-lg"></i>ﾠ @($"{Model.ImagemRecentes[Model.LastIndex].DateTime:HH:mm}")</h5>
+                                        }
+                                    }
+                                </div>
+                                <div id="morris-donut-chart"></div>
+                                <div class="text-right">
+                                    <a href="#">Ver Detalhes <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
