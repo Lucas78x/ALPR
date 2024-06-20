@@ -64,7 +64,7 @@ public class RegistroController : Controller
                 if (response.IsSuccessStatusCode)
                 {
 
-                    return RedirectToAction("Home","Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
