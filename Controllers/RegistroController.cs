@@ -68,20 +68,20 @@ public class RegistroController : Controller
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = "Erro ao registrar usuário. Verifique os dados e tente novamente.";
+                    ViewBag.ErrorMessage = "Erro ao registrar usuario. Verifique os dados e tente novamente.";
                     return View(model);
                 }
 
             }
             catch
             {
-                ViewBag.ErrorMessage = "Erro ao registrar usuário. Verifique os dados e tente novamente.";
+                ViewBag.ErrorMessage = "Erro ao registrar usuario. Verifique os dados e tente novamente.";
                 return View(model);
             }
 
         }
 
-        ViewBag.ErrorMessage = "Erro ao registrar usuário. Verifique os dados e tente novamente.";
+        ViewBag.ErrorMessage = "Erro ao registrar usuario. Verifique os dados e tente novamente.";
         return View(model);
     }
 }
