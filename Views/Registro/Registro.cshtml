@@ -40,9 +40,25 @@
                     <label>Confirmar Senha</label>
                 </div>
                 <input name="submit" type="submit" value="Confirmar" />
-                    <div class="signup_link">
+                <div class="signup_link">
                     Ja tem uma conta? <a href="/Home/Index">Login Here</a>
+                </div>
+
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div id="errorMessage" class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>@ViewBag.ErrorMessage</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+
+                    <script>
+                        setTimeout(function () {
+                            $('#errorMessage').alert('close');
+                        }, 5000); // 5000 milliseconds = 5 seconds
+                    </script>
+                }
             </form>
         </div>
     </div>
