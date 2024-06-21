@@ -77,7 +77,7 @@ public class RegistroController : Controller
                 }
                 else
                 {
-            c
+                    ViewBag.ErrorMessage = $"Erro ao registrar usuario. Email ou CPNJ/CPF em uso para {account.Username}.";
                     return View("Registro", "Registro");
                 }
 
