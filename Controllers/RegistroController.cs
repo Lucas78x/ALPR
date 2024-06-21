@@ -16,7 +16,16 @@ public class RegistroController : Controller
     [HttpGet]
     public IActionResult Registro()
     {
-        return View("Registro");
+        string clientIp = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+        if (clientIp != null && clientIp.Contains("172.30.2"))
+        {      
+                return View("Registro");
+        }
+        else
+        {
+            return RedirectToAction("Index", "Home");
+        }
     }
 
     [HttpPost]
