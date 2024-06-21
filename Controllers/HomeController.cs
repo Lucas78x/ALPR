@@ -641,30 +641,24 @@ namespace F.Controllers
                 return cachedUrl;
             }
 
-            try
+
+            var uploadUrl = "http://192.0.2.25:8080/upload";
+
+            string imageName = ExtractFileName(url);
+            if (string.IsNullOrEmpty(imageName))
             {
-                var uploadUrl = "http://192.0.2.25:8080/upload";
+                return string.Empty;
+            }
 
-                string imageName = ExtractFileName(url);
-                if (string.IsNullOrEmpty(imageName))
+            using (var imageStream = new FileStream(url, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true))
+            {
+                try
                 {
-                    return string.Empty;
-                }
-
-                using (var imageStream = new FileStream(url, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true))
-                using (var image = SixLabors.ImageSharp.Image.Load(imageStream))
-                {
-                    // Compress image to WebP format
-                    using var compressedStream = new MemoryStream();
-                    var encoder = new SixLabors.ImageSharp.Formats.Webp.WebpEncoder();
-                    image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2)); // Resize image if necessary
-                    image.Save(compressedStream, encoder);
-
-                    compressedStream.Seek(0, SeekOrigin.Begin);
+                    // Prepare the content to be sent in the request
                     using var content = new MultipartFormDataContent();
-                    using var fileContent = new StreamContent(compressedStream);
-                    fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/webp");
-                    content.Add(fileContent, "file", $"{imageName}.webp");
+                    using var fileContent = new StreamContent(imageStream);
+                    fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+                    content.Add(fileContent, "file", $"{imageName}.jpg");
 
                     // Send the request to the server
                     var response = await _client.PostAsync(uploadUrl, content);
@@ -680,16 +674,17 @@ namespace F.Controllers
                     }
                     else
                     {
-                        // Optionally log the error
+
                         return string.Empty;
                     }
                 }
+                catch (Exception ex)
+                {
+                    return string.Empty;
+                }
             }
-            catch (Exception ex)
-            {
-                // Optionally log the exception
-                return string.Empty;
-            }
+
+
         }
 
         private string ExtractFileName(string url)
