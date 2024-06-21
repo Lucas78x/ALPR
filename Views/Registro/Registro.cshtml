@@ -44,12 +44,11 @@
                 <div class="signup_link">
                     Ja tem uma conta? <a href="/Home/Index">Login Here</a>
                 </div>
-
                 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
                 {
-                    <div id="errorMessage" class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 20px; border: 1px solid #ffc107; border-radius: 5px; background-color: #fff3cd; color: #856404; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <div id="errorMessage" class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 20px; border: 1px solid #ffc107; border-radius: 10px; background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); color: #856404; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 15px; position: relative;">
                         <strong>@ViewBag.ErrorMessage</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="color: #856404;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #856404; font-size: 1.5rem; font-weight: bold; cursor: pointer;">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
