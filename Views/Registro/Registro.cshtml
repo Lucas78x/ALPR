@@ -47,9 +47,9 @@
 
                 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
                 {
-                    <div id="errorMessage" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <div id="errorMessage" class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 20px; border: 2px solid #ffc107; background-color: #fff3cd; color: #856404; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                         <strong>@ViewBag.ErrorMessage</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="color: #856404;">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -60,6 +60,7 @@
                         }, 5000); // 5000 milliseconds = 5 seconds
                     </script>
                 }
+
             </form>
         </div>
     </div>
