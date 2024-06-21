@@ -76,7 +76,7 @@ namespace F.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar Senha")]
-        [Compare("Senha", ErrorMessage = "As senhas não coincidem.")]
+        [Compare("Senha", ErrorMessage = "As senhas nao coincidem.")]
         public string ConfirmarSenha { get; set; }
     }
 
