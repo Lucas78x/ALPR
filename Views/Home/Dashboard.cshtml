@@ -310,7 +310,7 @@
                                             </thead>
                                             <tbody>
                                                 @{
-                                                    if (Model.ImagemRecentes.Count > 0)
+                                                    if (Model.ImagemRecentes != null)
                                                     {
                                                         var array_datas = Model.ImagemRecentes
                                                         .OrderByDescending(imagemRecente => imagemRecente.DateTime)
